@@ -104,6 +104,14 @@ section:nth-of-type(even){background:#FAFBFD}
 .caps > div:nth-child(3){--cc:var(--f-org)}.caps > div:nth-child(4){--cc:var(--f-ext)}
 .caps > div:nth-child(5){--cc:var(--f-loc)}.caps > div:nth-child(6){--cc:var(--f-com)}
 .caps > div:nth-child(7){--cc:var(--f-loc)}.caps > div:nth-child(8){--cc:var(--evi)}
+.hero .stats{display:flex;gap:34px;margin:0 0 24px;flex-wrap:wrap}
+.hero .stats b{display:block;font-size:23px;color:#fff;font-weight:700}
+.hero .stats span{font-size:12.5px;color:#BFC6D3}
+.sectors{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.sectors span{border:1px solid var(--line);background:var(--tint);padding:6px 14px;border-radius:999px;font-size:14px;color:var(--body)}
+.mini{display:flex;flex-direction:column;gap:10px}
+.mini div{display:flex;gap:11px;font-size:15.5px;align-items:flex-start}
+.mini i{font-style:normal;flex:none;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-top:2px}
 .caps .capic{display:block;margin-bottom:8px;color:var(--cc,var(--navy))}
 .caps h3{font-size:16.5px;margin-bottom:4px}
 .caps p{font-size:15px;color:var(--muted);max-width:none}
@@ -347,6 +355,12 @@ section:nth-of-type(even){background:#FAFBFD}
     <div>
       <h1><svg aria-hidden="true"><use href="#mk"/></svg>Lense<i>.ai</i></h1>
       <p class="lede"><b>Thematic and human factors analysis of incident and investigation reports.</b> For any set of reports, Lense.ai identifies the themes and contributory factors that recur across them, and extracts the key facts from each report &mdash; every finding traceable to its source sentences.</p>
+      <div class="stats" aria-label="Key figures">
+        <div><b>6,300+</b><span>reports in the archive</span></div>
+        <div><b>19</b><span>framework factors</span></div>
+        <div><b>88%</b><span>agreement with experts</span></div>
+        <div><b>Nightly</b><span>automatic updates</span></div>
+      </div>
       <div class="actions">
         <a class="btn" href="#journey">How it works</a>
       </div>
@@ -829,7 +843,8 @@ section:nth-of-type(even){background:#FAFBFD}
     <div class="split">
       <div>
         <h3 style="font-size:17px;margin-bottom:8px">Who we would like to work with</h3>
-        <p style="font-size:15px">Prevention of Future Deaths reports reach every part of public life, and partnership is open to every sector: the public sector, industry, the third sector, and academia.</p>
+        <p style="font-size:15px">Prevention of Future Deaths reports reach every part of public life, and partnership is open to every sector.</p>
+        <div class="sectors"><span>Public sector</span><span>Industry</span><span>Third sector</span><span>Academia</span></div>
         <p style="margin-top:12px;font-size:15px">A partnership can start small &mdash; a shared project on the reports in your remit, or an analysis run together &mdash; and grow into co-designed features and joint studies.</p>
       </div>
       <div class="panel" style="border-top-color:var(--iris)">
@@ -859,7 +874,7 @@ section:nth-of-type(even){background:#FAFBFD}
       </div>
       <div class="panel" style="border-top-color:var(--evi)">
         <h3>Tell us what you used it for</h3>
-        <p>Tell us what you were trying to find out and whether the tool helped. Feedback on what did not work is especially valuable &mdash; it directs what we improve.</p>
+        <p>Tell us what you were trying to find out and whether the tool helped.</p>
         <p>There is a feedback form in the tool, or you can <a href="mailto:g.cosma@lboro.ac.uk?subject=Lense.ai%20-%20how%20I%20used%20it">email Professor Georgina Cosma directly</a> &mdash; including if you&rsquo;d like to learn more. We never name a user or an organisation without asking first.</p>
       </div>
     </div>
@@ -875,7 +890,11 @@ section:nth-of-type(even){background:#FAFBFD}
     </div>
     <div class="split">
       <div>
-        <p>Email us with a brief note of who you are and how you plan to use the tool, and we will send you a code.</p>
+        <div class="mini">
+          <div><i>1</i><span>Email us with who you are and how you plan to use the tool.</span></div>
+          <div><i>2</i><span>We send you an invitation code.</span></div>
+          <div><i>3</i><span>Register with the code and sign in.</span></div>
+        </div>
         <p style="margin-top:12px">Lense.ai is a research project; registration helps us understand how the tool is used and demonstrate its impact.</p>
         <p style="margin-top:12px">We are happy to help with your analysis.</p>
         <p style="margin-top:22px">
