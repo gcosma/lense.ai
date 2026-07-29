@@ -6,6 +6,7 @@
 <title>Lense.ai — Thematic and human factors analysis of incident and investigation reports</title>
 <meta name="description" content="Lense.ai analyses incident and investigation reports at scale, identifying the themes and contributory factors that recur across them, with every finding traceable to the sentences that support it. Developed at Loughborough University.">
 <meta name="theme-color" content="#16223F">
+<meta name="color-scheme" content="only light">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,8 +23,9 @@
   --wrap:1080px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;color-scheme:only light}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
 body{font-family:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   font-size:17px;line-height:1.62;color:var(--body);background:var(--paper);-webkit-font-smoothing:antialiased}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
@@ -124,6 +126,7 @@ section:nth-of-type(even){background:#FAFBFD}
 .step:nth-of-type(5){--sn:var(--f-loc)}.step:nth-of-type(6){--sn:var(--f-com)}
 .step:nth-of-type(7){--sn:var(--evi)}.step:nth-of-type(8){--sn:var(--f-com)}
 .step:nth-of-type(9){--sn:var(--f-org)}
+.step > div{min-width:0}
 .step h3{margin-bottom:8px}
 .step p{font-size:16px;margin-bottom:14px}
 .step figure{border:1px solid var(--line);background:#fff}
@@ -164,7 +167,7 @@ section:nth-of-type(even){background:#FAFBFD}
 .vzhb:hover .tr i{filter:brightness(1.15)}
 .vzrow{display:flex;gap:16px;align-items:stretch;flex-wrap:wrap}
 .vzc{border:1px solid var(--line);background:#fff;padding:16px 18px;min-width:0}
-.vzage{flex:1.45}.vzgen{flex:1;display:flex;flex-direction:column}
+.vzage{flex:1.45;min-width:0}.vzgen{flex:1;min-width:0;display:flex;flex-direction:column}
 .vzh h4{font-size:15px;color:var(--ink)}
 .vzsub{font-size:12.5px;color:var(--muted);margin-top:2px}
 .vzmeta{font-size:12px;color:var(--faint);margin-top:1px}
@@ -367,6 +370,20 @@ section:nth-of-type(even){background:#FAFBFD}
 .menu a.active{color:var(--navy)}
 .menu a.active::after{content:"";display:block;height:2px;background:var(--iris);margin-top:3px}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1 !important;transform:none !important;transition:none !important}}
+@media(max-width:760px){
+.vzrow{flex-direction:column}
+.vzc{overflow-x:auto}
+.vzxlab span:nth-child(even){opacity:0}
+.vzc{padding:14px 14px}
+.vzhb .lb{width:34%;font-size:11px}
+.vzhb .vv{width:40px;font-size:11px}
+.wbb .l{width:34%;font-size:11px}
+.vzxlab span{font-size:9px}
+.vzplot{height:190px}
+.vzheat{font-size:11px}
+.vzheat td,.vzheat th{padding:6px 4px}
+.wbtab{font-size:11.5px;padding:3px 8px}
+}
 </style>
 </head>
 <body>
