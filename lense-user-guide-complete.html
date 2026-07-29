@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Lense.AI — User Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0C0C; --body:#3A4050; --muted:#5E6676; --line:#DDE1E9; --line2:#BFC6D3;
+    --navy:#1F3864; --deep:#16223F; --navy-pale:#F2F5FA; --tint:#F4F6F9; --iris:#5A57C9;
+  }
+  @page{size:A4;margin:0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#69758a}
+  body{font-family:"Public Sans",Arial,sans-serif;color:var(--body);font-size:9.3pt;line-height:1.42;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;background:#fff;margin:0 auto;display:flex;flex-direction:column;
+    padding:0 13mm;position:relative}
+  b{color:var(--ink)}
+  .mast{display:flex;justify-content:space-between;align-items:flex-start;padding-top:6mm}
+  .mast .id{display:flex;align-items:center;gap:9px}
+  .mast .id svg{width:26px;height:26px}
+  .mast .id b{font-size:16pt;letter-spacing:-.02em;line-height:1;color:var(--ink);font-weight:700}
+  .mast .id b i{font-style:normal;color:var(--iris)}
+  .mast .id small{display:block;font-size:6.8pt;font-weight:400;color:var(--muted);margin-top:2px}
+  .mast .c{text-align:right;font-size:7.4pt}
+  .mast .c b{display:block;font-size:8pt}
+  .mast .c span{color:var(--muted)}
+  .rule{border-top:2px solid var(--navy);margin:4px 0 6px}
+  h1{font-size:13.5pt;color:var(--ink);font-weight:700;letter-spacing:-.01em;margin-bottom:2px}
+  .lede{font-size:8.9pt;margin-bottom:6px;max-width:98ch}
+
+  figure{margin:0 0 6px}
+  figcaption{font-size:7.4pt;color:var(--muted);margin-top:3px}
+
+  table{width:100%;border-collapse:collapse;font-size:8.2pt;line-height:1.38}
+  th{background:var(--navy);color:#fff;font-weight:700;text-align:left;padding:4px 8px;font-size:7.3pt;
+    letter-spacing:.04em;text-transform:uppercase}
+  td{padding:3.6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  td.n{width:7%;text-align:center}
+  td.n i{font-style:normal;display:inline-block;width:15px;height:15px;border-radius:50%;background:var(--iris);
+    color:#fff;font-weight:700;font-size:8pt;line-height:15px;text-align:center}
+  td.f{font-weight:700;color:var(--ink);width:24%}
+
+  .band{background:var(--deep);color:#fff;margin:auto -13mm 0;padding:7px 13mm 8px}
+  .band .l{font-size:8.4pt}
+  .band .l b{color:#fff}
+  .pg{position:absolute;bottom:4mm;right:13mm;font-size:7pt;color:var(--muted)}
+
+  @media screen and (max-width: 900px){
+    html,body{background:#fff}
+    body{font-size:15px;line-height:1.5}
+    .page{width:100%;height:auto;min-height:0;padding:5vw;margin:0}
+    h1{font-size:1.3rem}
+    table{font-size:.82rem;display:block;overflow-x:auto}
+    td.f{min-width:9rem}
+    .band{margin:24px -5vw 0}
+    .pg{display:none}
+  }
+
+  .coverpage{width:210mm;min-height:297mm;background:#16142A;margin:0 auto;position:relative;
+    display:flex;flex-direction:column;padding:22mm 20mm;color:#E4E2F2}
+  .coverpage::before{content:"";position:absolute;inset:0;background:radial-gradient(64% 50% at 38% 38%, rgba(120,110,170,.18), transparent 74%)}
+  .coverpage::after{content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,#1F2E5C 0 16.6%,#3B4C8F 0 33.3%,#5A57C9 0 50%,#4A7BB5 0 66.6%,#8FB3D9 0 83.3%,#D9CBA6 0 100%)}
+  .coverpage > *{position:relative}
+  .cv-ws{font-size:9pt;letter-spacing:3px;color:#B4B0CE}
+  .cv-brand{font-size:30pt;font-weight:700;color:#fff;margin-top:4px}
+  .cv-brand i{font-style:normal;color:#A9A6FF}
+  .cv-id{display:flex;align-items:center;gap:14px}
+  .cv-logo{width:56px;height:56px;flex:none}
+  .cv-title{font-size:21pt;font-weight:700;color:#fff;margin-top:24mm;line-height:1.2}
+  .cv-sub{font-size:11pt;color:#A9A6FF;margin-top:6px;max-width:75%}
+  .cv-toc{margin-top:16mm;border-top:1px solid #3A3557;padding-top:8mm}
+  .cv-toc h2{font-size:9pt;letter-spacing:2.5px;color:#B4B0CE;font-weight:700;margin-bottom:7mm}
+  .cv-item{display:flex;align-items:baseline;gap:14px;padding:4.2mm 0;border-bottom:1px solid #2A2648}
+  .cv-item:last-child{border-bottom:0}
+  .cv-num{flex:none;width:26px;height:26px;border-radius:50%;background:#5A57C9;color:#fff;
+    font-weight:700;font-size:10.5pt;text-align:center;line-height:26px}
+  .cv-item .t{flex:1}
+  .cv-item .t b{display:block;color:#fff;font-size:12pt;font-weight:700}
+  .cv-item .t span{display:block;color:#B4B0CE;font-size:8.6pt;margin-top:1px}
+  .cv-pg{flex:none;color:#A9A6FF;font-size:10pt;font-weight:700;font-variant-numeric:tabular-nums}
+  .cv-foot{margin-top:auto;color:#B4B0CE;font-size:8.4pt;border-top:1px solid #3A3557;padding-top:5mm}
+  .coverpage + .page{margin-top:6mm}
+  @media screen and (max-width:900px){.coverpage{width:100%;min-height:0;padding:8vw 6vw}.cv-sub{max-width:100%}}
+
+  .gnav{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 3px}
+  .gnav span,.gnav a{font-size:6.8pt;padding:1.6px 7px;border:1px solid var(--line2);border-radius:9px;color:var(--muted);white-space:nowrap;text-decoration:none}
+  .gnav .on{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+  .gnav a:hover{border-color:var(--iris);color:var(--iris)}
+  .gloc{font-size:7.6pt;color:var(--muted);margin:0 0 7px}
+  .gloc b{color:var(--navy)}
+  @media screen and (max-width:900px){.gnav span{font-size:.68rem}.gloc{font-size:.75rem}}
+
+
+  .backpage{width:210mm;min-height:297mm;background:#16142A;margin:6mm auto 0;position:relative;
+    display:flex;flex-direction:column;justify-content:center;padding:22mm 24mm;color:#E4E2F2}
+  .backpage::before{content:"";position:absolute;inset:0;background:radial-gradient(64% 50% at 38% 38%, rgba(120,110,170,.18), transparent 74%)}
+  .backpage::after{content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,#1F2E5C 0 16.6%,#3B4C8F 0 33.3%,#5A57C9 0 50%,#4A7BB5 0 66.6%,#8FB3D9 0 83.3%,#D9CBA6 0 100%)}
+  .backpage > *{position:relative}
+  .bp-k{font-size:10pt;letter-spacing:3px;color:#B4B0CE;font-weight:700}
+  .bp-cite{font-size:15pt;line-height:1.6;color:#fff;font-weight:700;margin-top:10mm;max-width:44ch;letter-spacing:-.01em}
+  .bp-cite i{font-style:normal;color:#fff}
+  .bp-doi{font-size:13pt;color:#A9A6FF;margin-top:8mm;font-weight:600}
+  .bp-note{font-size:9.5pt;color:#B4B0CE;margin-top:4mm;max-width:60ch;line-height:1.6}
+  .bp-contact{margin-top:16mm;border-top:1px solid #3A3557;padding-top:9mm;font-size:10pt;line-height:1.75}
+  .bp-contact .bp-q{font-size:12.5pt;color:#fff;font-weight:600;margin-bottom:4mm}
+  .bp-contact b{display:block;color:#E4E2F2;font-size:10.5pt;font-weight:600}
+  .bp-contact .em{color:#A9A6FF}
+  .bp-foot{position:absolute;bottom:12mm;left:24mm;right:24mm;color:#B4B0CE;font-size:8.4pt;
+    border-top:1px solid #3A3557;padding-top:5mm}
+  @media screen and (max-width:900px){.backpage{width:100%;min-height:0;margin-top:0;padding:10vw 6vw}
+    .bp-cite{font-size:1.35rem}.bp-doi{font-size:1.05rem}.bp-contact{font-size:1rem}
+    .bp-foot{position:static;margin-top:10vw}}
+
+  html{scroll-behavior:smooth}
+  a.cv-link{text-decoration:none;color:inherit;display:block}
+  a.cv-link:hover .t b{color:#C4C2FF}
+  a.cv-link:hover .cv-pg{color:#C4C2FF}
+</style>
+</head>
+<body>
+
+
+
+<div class="coverpage">
+  <div class="cv-id">
+    <svg class="cv-logo" viewBox="0 0 48 48" aria-hidden="true">
+      <clipPath id="cvlens"><circle cx="21" cy="24" r="14"/></clipPath>
+      <g clip-path="url(#cvlens)"><rect x="6" y="16.5" width="30" height="2" fill="#5B5883"/><rect x="6" y="29.5" width="30" height="2" fill="#5B5883"/></g>
+      <rect x="7" y="22.5" width="38" height="3" fill="#A9A6FF"/>
+      <circle cx="21" cy="24" r="14" fill="none" stroke="#FFFFFF" stroke-width="2.6"/>
+    </svg>
+    <div><div class="cv-ws">WORKSPACE</div><div class="cv-brand">Lense<i>.ai</i></div></div>
+  </div>
+  <div class="cv-title">User Guide</div>
+  <div class="cv-sub">A page-by-page guide to the workspace for exploring Prevention of Future Deaths reports.</div>
+  <div class="cv-toc">
+    <h2>CONTENTS</h2>
+      <a class="cv-link" href="#sec-1"><div class="cv-item"><div class="cv-num">1</div><div class="t"><b>Getting started</b><span>Registering, logging in, and finding your way around</span></div><div class="cv-pg">p.&thinsp;1</div></div></a>
+      <a class="cv-link" href="#sec-2"><div class="cv-item"><div class="cv-num">2</div><div class="t"><b>The Home page</b><span>The archive: searching, filtering, and opening reports</span></div><div class="cv-pg">p.&thinsp;2</div></div></a>
+      <a class="cv-link" href="#sec-3"><div class="cv-item"><div class="cv-num">3</div><div class="t"><b>Analysis & dashboard</b><span>Your search in charts, with drill-down and exports</span></div><div class="cv-pg">p.&thinsp;6</div></div></a>
+      <a class="cv-link" href="#sec-4"><div class="cv-item"><div class="cv-num">4</div><div class="t"><b>Projects</b><span>Curating sets of reports, sharing, and downloading data</span></div><div class="cv-pg">p.&thinsp;8</div></div></a>
+      <a class="cv-link" href="#sec-5"><div class="cv-item"><div class="cv-num">5</div><div class="t"><b>Factor annotation</b><span>Confirming the contributory factors, with evidence</span></div><div class="cv-pg">p.&thinsp;10</div></div></a>
+      <a class="cv-link" href="#sec-6"><div class="cv-item"><div class="cv-num">6</div><div class="t"><b>Factor analysis</b><span>The contributory factors across the whole selection</span></div><div class="cv-pg">p.&thinsp;11</div></div></a>
+      <a class="cv-link" href="#sec-7"><div class="cv-item"><div class="cv-num">7</div><div class="t"><b>Theme annotation</b><span>Agreeing the themes found in each report</span></div><div class="cv-pg">p.&thinsp;12</div></div></a>
+      <a class="cv-link" href="#sec-8"><div class="cv-item"><div class="cv-num">8</div><div class="t"><b>Theme analysis</b><span>The themes across the whole selection</span></div><div class="cv-pg">p.&thinsp;13</div></div></a>
+  </div>
+  <div class="cv-foot">Lense.ai &middot; Loughborough University &middot; July 2026 &middot; lense.up.railway.app</div>
+</div>
+
+
+<div class="page" id="sec-1">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="lx1"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#lx1)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Getting started</b><span>July 2026</span></div>
+  </div>
+  <div class="rule"></div>
+  <div class="gnav"><span class="on">1 &middot; Getting started</span><a href="#sec-2">2 &middot; Home</a><a href="#sec-3">3 &middot; Analysis &amp; dashboard</a><a href="#sec-4">4 &middot; Projects</a><a href="#sec-5">5 &middot; Factor annotation</a><a href="#sec-6">6 &middot; Factor analysis</a><a href="#sec-7">7 &middot; Theme annotation</a><a href="#sec-8">8 &middot; Theme analysis</a></div>
+  <div class="gloc">This sheet &mdash; part 1 of 8 of the Lense.ai user guide &mdash; covers: lense.up.railway.app &mdash; the log in / register screen, before the menu appears</div>
+
+
+  <h1>Getting started: registering and logging in</h1>
+  <p class="lede">Lense.ai runs in the browser at <b>lense.up.railway.app</b> &mdash; nothing to install, and free to use. Registration requires an <b>access code, provided on request</b>: you register once with your email, the code, and a personal password of your own &mdash; then log in with your email and personal password.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 404" width="100%" role="img" aria-label="Annotated diagram of the log in and register page">
+      <defs>
+        <radialGradient id="glowx2" cx="38%" cy="38%" r="64%">
+          <stop offset="0%" stop-color="#786EAA" stop-opacity="0.18"/>
+          <stop offset="74%" stop-color="#786EAA" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- left: workspace panel (new design) -->
+      <rect x="40" y="0" width="430" height="380" fill="#16142A"/>
+      <rect x="40" y="0" width="430" height="380" fill="url(#glowx2)"/>
+      <!-- taxonomy strip -->
+      <g>
+        <rect x="40" y="0" width="71.6" height="4" fill="#1F2E5C"/><rect x="111.6" y="0" width="71.6" height="4" fill="#3B4C8F"/>
+        <rect x="183.2" y="0" width="71.6" height="4" fill="#5A57C9"/><rect x="254.8" y="0" width="71.6" height="4" fill="#4A7BB5"/>
+        <rect x="326.4" y="0" width="71.6" height="4" fill="#8FB3D9"/><rect x="398" y="0" width="72" height="4" fill="#D9CBA6"/>
+      </g>
+      <!-- brand -->
+      <g>
+        <circle cx="88" cy="56" r="16" fill="none" stroke="#FFFFFF" stroke-width="2.6"/>
+        <line x1="76" y1="49" x2="100" y2="49" stroke="#5B5883" stroke-width="2"/>
+        <line x1="76" y1="63" x2="100" y2="63" stroke="#5B5883" stroke-width="2"/>
+        <rect x="70" y="54.5" width="44" height="3.4" fill="#A9A6FF"/>
+        <text x="124" y="64" font-size="22" fill="#FFFFFF" font-weight="700">Lense<tspan fill="#A9A6FF">.ai</tspan></text>
+      </g>
+      <text x="66" y="142" font-size="14" fill="#FFFFFF" font-weight="700">A workspace for exploring</text>
+      <text x="66" y="162" font-size="14" fill="#A9A6FF" font-weight="700">Prevention of Future Deaths reports</text>
+      <g font-size="9.4" fill="#E4E2F2">
+        <text x="66" y="212">The tool is free to use. Registration requires a code,</text>
+        <text x="66" y="227">which we provide on request. Lense.ai is a research</text>
+        <text x="66" y="242">project, and registration helps us understand how the</text>
+        <text x="66" y="257">tool is used and demonstrate its impact.</text>
+      </g>
+      <text x="66" y="284" font-size="9.8" fill="#A9A6FF" font-weight="600">More about the tool &#8599;</text>
+      <line x1="66" y1="286.5" x2="177" y2="286.5" stroke="#A9A6FF" stroke-opacity="0.45"/>
+      <rect x="348" y="267" width="96" height="26" rx="13" fill="rgba(169,166,255,0.14)" stroke="#A9A6FF" stroke-width="1.4"/>
+      <text x="396" y="284" text-anchor="middle" font-size="9.8" fill="#FFFFFF" font-weight="700">User guide &#8599;</text>
+      <line x1="66" y1="308" x2="444" y2="308" stroke="#3A3557"/>
+      <text x="66" y="328" font-size="9.8" fill="#FFFFFF" font-weight="600">Professor Georgina Cosma</text>
+      <text x="66" y="343" font-size="9.4" fill="#A9A6FF">g.cosma@lboro.ac.uk</text>
+      <text x="66" y="358" font-size="9.4" fill="#E4E2F2">Loughborough University</text>
+
+      <!-- right: account form (Register tab active) -->
+      <rect x="470" y="0" width="490" height="380" fill="#fff"/>
+      <text x="530" y="30" font-size="8.5" fill="#5A57C9" letter-spacing="2" font-weight="700">ACCOUNT</text>
+      <text x="530" y="58" font-size="17" fill="#111111" font-weight="700">Log in or register</text>
+      <text x="530" y="86" font-size="10.5" fill="#3A4050">Log in</text>
+      <text x="592" y="86" font-size="10.5" fill="#111111" font-weight="700">Register</text>
+      <line x1="530" y1="94" x2="936" y2="94" stroke="#E5E5E5"/>
+      <line x1="592" y1="94" x2="646" y2="94" stroke="#5A57C9" stroke-width="2.4"/>
+      <text x="530" y="118" font-size="9" fill="#3A4050">Register your own personal account to keep your projects and</text>
+      <text x="530" y="131" font-size="9" fill="#3A4050">uploads private. You will need the password we emailed you to register.</text>
+      <text x="530" y="158" font-size="9.5" fill="#111111">Email</text>
+      <line x1="530" y1="176" x2="936" y2="176" stroke="#5A57C9" stroke-width="1.4"/>
+      <text x="530" y="204" font-size="9.5" fill="#111111">New personal password</text>
+      <text x="936" y="222" text-anchor="end" font-size="9" fill="#999999">Show</text>
+      <line x1="530" y1="228" x2="936" y2="228" stroke="#E5E5E5" stroke-width="1.2"/>
+      <text x="530" y="256" font-size="9.5" fill="#111111">Password we emailed you</text>
+      <text x="936" y="274" text-anchor="end" font-size="9" fill="#999999">Show</text>
+      <line x1="530" y1="280" x2="936" y2="280" stroke="#E5E5E5" stroke-width="1.2"/>
+      <rect x="530" y="298" width="406" height="30" rx="3" fill="#E4E2F2"/>
+      <text x="733" y="318" text-anchor="middle" font-size="10.5" fill="#FFFFFF" font-weight="700">Register</text>
+      <text x="530" y="352" font-size="9" fill="#3A4050" text-decoration="underline">Forgotten your password?</text>
+      <text x="668" y="352" font-size="8" fill="#8A93A8">(on the Log in tab)</text>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ahx2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="26" y1="330" x2="52" y2="340" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx2)"/>
+        <circle cx="20" cy="322" r="11" fill="#5A57C9"/><text x="20" y="326" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="500" y1="80" x2="524" y2="84" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx2)"/>
+        <circle cx="491" cy="76" r="11" fill="#5A57C9"/><text x="491" y="80" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="972" y1="124" x2="944" y2="124" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx2)"/>
+        <circle cx="981" cy="124" r="11" fill="#5A57C9"/><text x="981" y="128" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="972" y1="214" x2="944" y2="214" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx2)"/>
+        <circle cx="981" cy="214" r="11" fill="#5A57C9"/><text x="981" y="218" text-anchor="middle" fill="#fff">4</text>
+
+        <line x1="972" y1="266" x2="944" y2="266" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx2)"/>
+        <circle cx="981" cy="266" r="11" fill="#5A57C9"/><text x="981" y="270" text-anchor="middle" fill="#fff">5</text>
+
+        <line x1="500" y1="348" x2="524" y2="348" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx2)"/>
+        <circle cx="491" cy="348" r="11" fill="#5A57C9"/><text x="491" y="352" text-anchor="middle" fill="#fff">6</text>
+      </g>
+    </svg>
+    <figcaption>The Lense.AI entry page, with the Register tab open.</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">The workspace panel</td><td>Lense.ai is a workspace for exploring Prevention of Future Deaths reports. <b>The tool is free to use; registration requires an access code, provided on request</b> &mdash; Lense.ai is a research project, and registration helps us understand how the tool is used and demonstrate its impact. The contact for requesting a code is on the page itself; <b>More about the tool</b> opens the project website, and the <b>User guide</b> button at the far end of the same line opens this guide.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Log in / Register tabs</td><td>First visit: <b>Register</b>. Every visit after that: <b>Log in</b>.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Registering</td><td>Register with your <b>email address</b> to create your own personal account &mdash; it is what keeps your projects and uploads private to you and the colleagues you invite. Colleagues can only share projects with you once you have registered, using the address you registered with.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">New personal password</td><td>Choose your own password for the account. <b>Show</b> reveals what you have typed.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Password we emailed you</td><td>The <b>access code we provide on request</b>, sent to you by email. It is needed once, at registration. If you do not have one, request it from the contact shown on the page.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Logging in &amp; forgotten passwords</td><td>After registering, log in with your email and personal password. <b>Forgotten your password?</b> on the Log in tab resets it.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.8pt;line-height:1.5">
+    <b style="color:var(--navy)">After you are in.</b>
+    The menu on the left of every page takes you to the archive (<b>Home</b>), the charts (<b>Analysis &amp; dashboard</b>), your <b>Projects</b>, and the review and analysis pages (<b>Factor annotation</b>, <b>Factor analysis</b>, <b>Theme annotation</b>, <b>Theme analysis</b>) &mdash; each covered by its own sheet in this guide series.
+  </div>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">1 of 13</div>
+</div>
+
+<div class="page" id="sec-2">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="lx3"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#lx3)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; the Home page</b><span>July 2026</span></div>
+  </div>
+  <div class="rule"></div>
+  <div class="gnav"><a href="#sec-1">1 &middot; Getting started</a><span class="on">2 &middot; Home</span><a href="#sec-3">3 &middot; Analysis &amp; dashboard</a><a href="#sec-4">4 &middot; Projects</a><a href="#sec-5">5 &middot; Factor annotation</a><a href="#sec-6">6 &middot; Factor analysis</a><a href="#sec-7">7 &middot; Theme annotation</a><a href="#sec-8">8 &middot; Theme analysis</a></div>
+  <div class="gloc">This sheet &mdash; part 2 of 8 of the Lense.ai user guide &mdash; covers: Menu &#9656; <b>Home</b></div>
+
+
+  <h1>The Home page at a glance</h1>
+  <p class="lede">Home is the archive of Prevention of Future Deaths reports. Each numbered marker on the picture is explained in the table beneath. Advanced search is pictured on page 2; clicking a report&rsquo;s title opens the report window, covered on pages 3&ndash;4.</p>
+
+  <figure>
+    <svg viewBox="0 0 1000 500" width="100%" role="img" aria-label="Annotated diagram of the Lense.ai Home page">
+      <!-- ===== sidebar ===== -->
+      <rect x="0" y="0" width="162" height="500" fill="#16223F"/>
+      <rect x="0" y="16" width="162" height="26" fill="#1F2E5C"/>
+      <text x="14" y="33" font-size="12" fill="#fff" font-weight="600">Home</text>
+      <text x="14" y="66" font-size="11" fill="#C9D0DC">Analysis &amp; dashboard</text>
+      <text x="14" y="94" font-size="8.5" fill="#8A93A8" letter-spacing="1">PROJECTS</text>
+      <text x="14" y="112" font-size="11" fill="#C9D0DC">View / create projects</text>
+      <text x="14" y="140" font-size="8.5" fill="#8A93A8" letter-spacing="1">HUMAN FACTOR ANALYSIS</text>
+      <text x="14" y="158" font-size="11" fill="#C9D0DC">Factor annotation</text>
+      <text x="14" y="176" font-size="11" fill="#C9D0DC">Factor analysis</text>
+      <text x="14" y="204" font-size="8.5" fill="#8A93A8" letter-spacing="1">THEMATIC ANALYSIS</text>
+      <text x="14" y="222" font-size="11" fill="#C9D0DC">Theme annotation</text>
+      <text x="14" y="240" font-size="11" fill="#C9D0DC">Theme analysis</text>
+      <text x="14" y="268" font-size="8.5" fill="#8A93A8" letter-spacing="1">DOCUMENTATION</text>
+      <text x="14" y="286" font-size="11" fill="#C9D0DC">Human factors evaluation sheet &#8599;</text>
+
+      <!-- ===== main ===== -->
+      <text x="560" y="34" text-anchor="middle" font-size="16" fill="#0B0C0C" font-weight="700">The HM Coroners&#8217; Prevention of Future Deaths reports archive</text>
+      <line x1="330" y1="48" x2="900" y2="48" stroke="#D9DEE6" stroke-width="1.5"/>
+
+      <!-- stats -->
+      <text x="430" y="92" text-anchor="middle" font-size="30" fill="#1F3864" font-weight="700">6,373</text>
+      <text x="430" y="110" text-anchor="middle" font-size="8.5" fill="#5E6676" letter-spacing="1">REPORTS INDEXED</text>
+      <text x="740" y="66" text-anchor="middle" font-size="8.5" fill="#5E6676" letter-spacing="1">ADDED RECENTLY</text>
+      <g text-anchor="middle">
+        <text x="665" y="94" font-size="20" fill="#5A57C9" font-weight="700">0</text>
+        <text x="665" y="110" font-size="8" fill="#5E6676">24 H</text>
+        <text x="740" y="94" font-size="20" fill="#5A57C9" font-weight="700">10</text>
+        <text x="740" y="110" font-size="8" fill="#5E6676">WEEK</text>
+        <text x="818" y="94" font-size="20" fill="#5A57C9" font-weight="700">42</text>
+        <text x="818" y="110" font-size="8" fill="#5E6676">MONTH</text>
+      </g>
+      <line x1="330" y1="128" x2="900" y2="128" stroke="#D9DEE6" stroke-width="1.5"/>
+
+      <!-- search -->
+      <rect x="330" y="148" width="112" height="26" rx="3" fill="#5A57C9"/>
+      <text x="386" y="165" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="600">Keyword search</text>
+      <rect x="442" y="148" width="118" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="501" y="165" text-anchor="middle" font-size="10.5" fill="#3A4050">Advanced search</text>
+      <text x="580" y="165" font-size="10" fill="#1F3864" text-decoration="underline">How it works</text>
+      <rect x="330" y="184" width="330" height="30" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <circle cx="348" cy="199" r="5" fill="none" stroke="#8A93A8" stroke-width="1.6"/>
+      <line x1="352" y1="203" x2="357" y2="208" stroke="#8A93A8" stroke-width="1.6"/>
+      <text x="366" y="203" font-size="10" fill="#3A4050">CQC</text>
+      <text x="644" y="203" font-size="11" fill="#8A93A8">&#10005;</text>
+      <rect x="452" y="222" width="86" height="18" rx="9" fill="#EDEDF7"/>
+      <text x="495" y="234" text-anchor="middle" font-size="9.5" fill="#1F3864" font-weight="600">432 matches</text>
+
+      <!-- filters -->
+      <text x="700" y="146" font-size="9" fill="#5E6676" font-weight="700" letter-spacing="1">FILTER BY:</text>
+      <text x="700" y="164" font-size="9.5" fill="#5E6676">Category system:</text>
+      <rect x="786" y="154" width="60" height="15" rx="3" fill="#5A57C9"/><text x="816" y="165" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">Judiciary</text>
+      <rect x="848" y="154" width="40" height="15" rx="3" fill="#fff" stroke="#C9D0DC"/><text x="868" y="165" text-anchor="middle" font-size="9" fill="#3A4050">NHS</text>
+      <text x="700" y="183" font-size="7.5" fill="#0B0C0C">Category &#9662; &nbsp; Healthcare speciality &#9662; &nbsp; NHS region &#9662; &nbsp; Coroner area &#9662; &nbsp; Coroner name &#9662;</text>
+      <rect x="700" y="192" width="100" height="15" rx="3" fill="#fff" stroke="#C9D0DC"/><text x="708" y="203" font-size="9" fill="#3A4050">Date of report &#9662;</text>
+      <text x="806" y="203" font-size="9" fill="#8A93A8">dd/mm/yyyy &ndash; dd/mm/yyyy</text>
+      <line x1="742" y1="222" x2="750" y2="209" stroke="#5A57C9" stroke-width="1.3" marker-end="url(#ahx4)"/>
+      <text x="700" y="232" font-size="8" fill="#5A57C9" font-style="italic">date of report or date of death</text>
+      <text x="700" y="248" font-size="9.5" fill="#5E6676">Active filters: <tspan fill="#3A4050">No filters applied yet</tspan></text>
+
+      <!-- table -->
+      <rect x="196" y="252" width="774" height="26" fill="#F4F6F9" stroke="#E3E7EE"/>
+      <g font-size="8.8" fill="#1F3864" font-weight="600">
+        <text x="238" y="269">Title &#8645;</text>
+        <text x="400" y="269">Date of report &#9662;</text>
+        <text x="490" y="269">Date published &#8645;</text>
+        <text x="585" y="269">Coroner area &#8645;</text>
+        <text x="680" y="269">Category &#8645;</text>
+        <text x="745" y="269">Healthcare speciality &#8645;</text>
+        <text x="905" y="269">Responses &#8645;</text>
+      </g>
+      <g stroke="#E3E7EE">
+        <line x1="196" y1="316" x2="970" y2="316"/>
+        <line x1="196" y1="354" x2="970" y2="354"/>
+      </g>
+      <!-- rows (invented) -->
+      <g font-size="8.8" fill="#3A4050">
+        <rect x="210" y="292" width="11" height="11" fill="#fff" stroke="#B9C0CC"/>
+        <text x="238" y="302" fill="#1F3864">Alex Example: PFD report</text>
+        <text x="400" y="302">02/07/2026</text><text x="490" y="302">17/07/2026</text>
+        <text x="585" y="302">Oxfordshire</text>
+        <rect x="676" y="291" width="62" height="15" rx="7.5" fill="#fff" stroke="#D9DEE6"/>
+        <text x="707" y="302" text-anchor="middle" font-size="7.5">Mental Health</text>
+        <text x="745" y="302" font-size="7.5">Mental Health &ndash; Community</text>
+        <text x="912" y="302">1</text>
+
+        <rect x="210" y="330" width="11" height="11" fill="#fff" stroke="#B9C0CC"/>
+        <text x="238" y="340" fill="#1F3864">Sam Sample: PFD report</text>
+        <text x="400" y="340">26/05/2026</text><text x="490" y="340">22/06/2026</text>
+        <text x="585" y="340">West Sussex</text>
+        <rect x="676" y="329" width="62" height="15" rx="7.5" fill="#fff" stroke="#D9DEE6"/>
+        <text x="707" y="340" text-anchor="middle" font-size="7.5">Hospital Death</text>
+        <text x="745" y="340" font-size="7.5">Corridor care</text>
+        <text x="912" y="340">3</text>
+
+        <rect x="210" y="368" width="11" height="11" fill="#fff" stroke="#B9C0CC"/>
+        <text x="238" y="378" fill="#1F3864">Jo Case: PFD report</text>
+        <text x="400" y="378">19/05/2026</text><text x="490" y="378">17/07/2026</text>
+        <text x="585" y="378">Inner North London</text>
+        <rect x="676" y="367" width="62" height="15" rx="7.5" fill="#fff" stroke="#D9DEE6"/>
+        <text x="707" y="378" text-anchor="middle" font-size="7.5">Mental Health</text>
+        <text x="745" y="378" font-size="7.5">Gastroenterology</text>
+        <text x="912" y="378">1</text>
+      </g>
+
+      <!-- ===== numbered markers with arrows ===== -->
+      <defs>
+        <marker id="ahx4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <!-- 1: nav -->
+        <line x1="205" y1="440" x2="150" y2="230" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="210" cy="448" r="11" fill="#5A57C9"/><text x="210" y="452" text-anchor="middle" fill="#fff">1</text>
+        <!-- 2: total -->
+        <line x1="352" y1="80" x2="396" y2="84" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="340" cy="79" r="11" fill="#5A57C9"/><text x="340" y="83" text-anchor="middle" fill="#fff">2</text>
+        <!-- 3: added recently -->
+        <line x1="886" y1="52" x2="836" y2="80" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="895" cy="47" r="11" fill="#5A57C9"/><text x="895" y="51" text-anchor="middle" fill="#fff">3</text>
+        <!-- 4: search -->
+        <line x1="268" y1="196" x2="322" y2="196" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="256" cy="196" r="11" fill="#5A57C9"/><text x="256" y="200" text-anchor="middle" fill="#fff">4</text>
+        <!-- 5: filters -->
+        <line x1="948" y1="150" x2="912" y2="176" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="955" cy="143" r="11" fill="#5A57C9"/><text x="955" y="147" text-anchor="middle" fill="#fff">5</text>
+        <!-- 6: sort headers -->
+        <line x1="480" y1="238" x2="524" y2="258" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="472" cy="232" r="11" fill="#5A57C9"/><text x="472" y="236" text-anchor="middle" fill="#fff">6</text>
+        <!-- 7: title click -->
+        <line x1="292" y1="422" x2="316" y2="384" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="286" cy="432" r="11" fill="#5A57C9"/><text x="286" y="436" text-anchor="middle" fill="#fff">7</text>
+        <!-- 8: checkboxes -->
+        <line x1="196" y1="408" x2="212" y2="384" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="190" cy="418" r="11" fill="#5A57C9"/><text x="190" y="422" text-anchor="middle" fill="#fff">8</text>
+        <!-- 9: responses -->
+        <line x1="932" y1="422" x2="940" y2="388" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx4)"/>
+        <circle cx="930" cy="433" r="11" fill="#5A57C9"/><text x="930" y="437" text-anchor="middle" fill="#fff">9</text>
+      </g>
+    </svg>
+    <figcaption>The Home page (report rows illustrative; names invented).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Menu</td><td>Moves between the tool&rsquo;s pages: Home (this archive), Analysis &amp; dashboard (charts), Projects, Factor annotation, Factor analysis, Theme annotation and Theme analysis &mdash; each with its own guide sheet. A <b>Documentation</b> section at the foot links out to the <b>Human factors evaluation sheet</b>.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Reports indexed</td><td><b>The size of the archive</b> &mdash; every PFD report captured from judiciary.uk to date. <b>Every night the tool re-checks judiciary.uk</b>, picking up newly published reports and <b>responses added to existing reports</b> (every report from the last 12 months is re-visited, so a response published months later is still captured). The archive keeps itself current.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Added recently &mdash; 24&nbsp;H / Week / Month</td><td><b>What&rsquo;s new</b> &mdash; how many reports arrived in the last day, week and month. <b>Click a tile</b> to show only those new reports in the table below: the quickest way to see the latest arrivals. The tiles count <b>fixed windows</b> &mdash; the last 24 hours, week and month, refreshed by the nightly update. Click again or clear filters to return to everything.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Search</td><td><b>Keyword search</b> finds your exact words; <b>Advanced search</b> searches by <b>meaning</b>: reports are ranked by how closely they match the search phrase or topic, not only its exact words. A pill shows the <b>match count</b>; <b>&#10005;</b> clears the search. In Advanced search the tool also shows the <b>expanded topic</b> it searched (so you see exactly what was looked for), <b>Load more</b> brings further results, and each row&rsquo;s <b>Relevance</b> badge says why it matched &mdash; <b>Keyword</b> (exact words) or <b>Semantic</b> (similar meaning).</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Filters</td><td>Narrow by Category, by <b>healthcare speciality</b>, by <b>location</b>, and by <b>date</b> &mdash; the date of report (when the coroner wrote it, not when it appeared online) or the date of death. Two switches shape the view. A <b>Category system</b> switch chooses the category vocabulary: <b>Judiciary</b> &mdash; the categories reports are published under on the judiciary website (Hospital deaths, Suicide&hellip;) &mdash; or <b>NHS</b>, which re-classifies each report into the NHS reference categories (Ambulance, Mental Health, Community&hellip;); it governs both the Category filter and the Category shown in the table. A separate <b>Healthcare speciality</b> filter (Emergency Department, Cardiac, Mental Health &ndash; Community&hellip;) narrows to a clinical area and applies under either category system. A second switch chooses how <b>location</b> is filtered &mdash; by <b>NHS England region</b> (the seven regions) or by <b>Coroner</b> (area and name). &ldquo;Active filters&rdquo; shows everything applied; remove any from there.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Column headings</td><td>Click any heading to sort the table by it; click again to reverse the order.</td></tr>
+    <tr><td class="n"><i>7</i></td><td class="f">A report&rsquo;s title</td><td>Opens the <b>report window</b>: full text with search words highlighted, key facts, evidence, and the original documents &mdash; explained on pages 3&ndash;4. A report may carry <b>more than one category</b>; all show in the Category column.</td></tr>
+    <tr><td class="n"><i>8</i></td><td class="f">Tick boxes</td><td>Select reports; a bar appears with the count and <b>Download ZIP</b> &mdash; the original PDFs of everything selected, in one file.</td></tr>
+    <tr><td class="n"><i>9</i></td><td class="f">Responses</td><td>How many response documents are published alongside the report on judiciary.uk. Kept up to date by the same nightly check (see 2): a response added later to a report from the last 12 months appears here after that night&rsquo;s check. Open the report (7) to see and download them.</td></tr>
+  </table>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">2 of 13</div>
+</div>
+
+<!-- ═══════ PAGE 2 — ADVANCED SEARCH ═══════ -->
+<div class="page">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="lAx5"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#lAx5)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; the Home page</b><span>Advanced search</span></div>
+  </div>
+  <div class="rule"></div>
+
+  <h1>Advanced search: searching by meaning</h1>
+  <p class="lede">A real comparison: <b>&ldquo;home birth&rdquo;</b> as a keyword search finds <b>9</b> reports containing those exact words. The same phrase in <b>Advanced search</b> finds <b>192</b> &mdash; because it searches by meaning, reaching reports about planned home deliveries, obstetric emergencies at home or delayed transfers to hospital that never use the phrase itself.</p>
+
+  <figure>
+    <svg viewBox="0 -16 1000 446" width="100%" role="img" aria-label="Annotated diagram of Advanced search results">
+      <!-- search area -->
+      <rect x="40" y="14" width="118" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="99" y="31" text-anchor="middle" font-size="10.5" fill="#3A4050">Keyword search</text>
+      <rect x="158" y="14" width="126" height="26" rx="3" fill="#5A57C9"/>
+      <text x="221" y="31" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="600">Advanced search</text>
+      <text x="300" y="31" font-size="10" fill="#1F3864" text-decoration="underline">How it works</text>
+      <rect x="40" y="50" width="340" height="30" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <circle cx="58" cy="65" r="5" fill="none" stroke="#8A93A8" stroke-width="1.6"/>
+      <line x1="62" y1="69" x2="67" y2="74" stroke="#8A93A8" stroke-width="1.6"/>
+      <text x="76" y="69" font-size="10" fill="#3A4050">home birth</text>
+      <text x="364" y="69" font-size="11" fill="#8A93A8">&#10005;</text>
+
+      <!-- found pill + expanded topic -->
+      <rect x="352" y="104" width="132" height="22" rx="11" fill="#EDEDF7"/>
+      <text x="418" y="119" text-anchor="middle" font-size="10" fill="#1F3864" font-weight="700">Found 192 reports</text>
+      <text x="494" y="119" font-size="10" fill="#5E6676">matching your search</text>
+      <text x="500" y="148" text-anchor="middle" font-size="9.5" fill="#0B6B57" font-style="italic">Searched the following expanded topic: a death primarily concerning home birth, planned home delivery,</text>
+      <text x="500" y="162" text-anchor="middle" font-size="9.5" fill="#0B6B57" font-style="italic">domiciliary childbirth, intrapartum complications during home birth, failure to recognise obstetric</text>
+      <text x="500" y="176" text-anchor="middle" font-size="9.5" fill="#0B6B57" font-style="italic">emergencies at home, or delayed transfer from home to hospital.</text>
+
+      <!-- results table -->
+      <rect x="40" y="196" width="920" height="26" fill="#F4F6F9" stroke="#E3E7EE"/>
+      <g font-size="9.5" fill="#1F3864" font-weight="600">
+        <text x="80" y="213">Title &#8645;</text>
+        <text x="380" y="213">Date of report &#8645;</text>
+        <text x="490" y="213">Coroner area &#8645;</text>
+        <text x="650" y="213">Category &#8645;</text>
+        <text x="820" y="213">Responses &#8645;</text>
+        <text x="898" y="213">Relevance</text>
+      </g>
+      <g stroke="#E3E7EE">
+        <line x1="40" y1="262" x2="960" y2="262"/>
+        <line x1="40" y1="302" x2="960" y2="302"/>
+        <line x1="40" y1="342" x2="960" y2="342"/>
+      </g>
+      <g font-size="9.5" fill="#3A4050">
+        <rect x="54" y="236" width="11" height="11" fill="#fff" stroke="#B9C0CC"/>
+        <text x="80" y="246" fill="#1F3864">Adele Example: Prevention of future deaths report</text>
+        <text x="380" y="246">20/06/2022</text>
+        <text x="490" y="246">Berkshire</text>
+        <rect x="644" y="235" width="118" height="15" rx="7.5" fill="#fff" stroke="#D9DEE6"/>
+        <text x="703" y="246" text-anchor="middle" font-size="8">Child Death from 2015</text>
+        <text x="838" y="246">1</text>
+        <rect x="888" y="234" width="62" height="16" rx="3" fill="#F4F6F9" stroke="#D9DEE6"/>
+        <text x="919" y="246" text-anchor="middle" font-size="8.5" fill="#5E6676">Keyword</text>
+
+        <rect x="54" y="276" width="11" height="11" fill="#fff" stroke="#B9C0CC"/>
+        <text x="80" y="286" fill="#1F3864">Orlando Sample: Prevention of future deaths report</text>
+        <text x="380" y="286">26/04/2024</text>
+        <text x="490" y="286">West Sussex, Brighton and Hove</text>
+        <rect x="644" y="275" width="118" height="15" rx="7.5" fill="#fff" stroke="#D9DEE6"/>
+        <text x="703" y="286" text-anchor="middle" font-size="8">Child Death from 2015</text>
+        <text x="838" y="286">4</text>
+        <rect x="888" y="274" width="62" height="16" rx="3" fill="#F4F6F9" stroke="#D9DEE6"/>
+        <text x="919" y="286" text-anchor="middle" font-size="8.5" fill="#5E6676">Keyword</text>
+
+        <rect x="54" y="316" width="11" height="11" fill="#fff" stroke="#B9C0CC"/>
+        <text x="80" y="326" fill="#1F3864">Arthur Case: Prevention of future deaths report</text>
+        <text x="380" y="326">29/11/2022</text>
+        <text x="490" y="326">West Sussex</text>
+        <rect x="644" y="315" width="118" height="15" rx="7.5" fill="#fff" stroke="#D9DEE6"/>
+        <text x="703" y="326" text-anchor="middle" font-size="8">Child Death from 2015</text>
+        <text x="838" y="326">&ndash;</text>
+        <rect x="888" y="314" width="62" height="16" rx="3" fill="#DFF5EC"/>
+        <text x="919" y="326" text-anchor="middle" font-size="8.5" fill="#0B6B57" font-weight="600">Semantic</text>
+      </g>
+      <text x="80" y="368" font-size="8.5" fill="#8A93A8" font-style="italic">(rows illustrative; names invented)</text>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ahDx6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="330" y1="8" x2="288" y2="18" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahDx6)"/>
+        <circle cx="341" cy="6" r="11" fill="#5A57C9"/><text x="341" y="10" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="308" y1="115" x2="344" y2="115" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahDx6)"/>
+        <circle cx="296" cy="115" r="11" fill="#5A57C9"/><text x="296" y="119" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="860" y1="146" x2="822" y2="152" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahDx6)"/>
+        <circle cx="872" cy="144" r="11" fill="#5A57C9"/><text x="872" y="148" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="922" y1="390" x2="920" y2="336" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahDx6)"/>
+        <circle cx="922" cy="400" r="11" fill="#5A57C9"/><text x="922" y="404" text-anchor="middle" fill="#fff">4</text>
+      </g>
+    </svg>
+    <figcaption>Advanced search results for &ldquo;home birth&rdquo; (rows illustrative; names invented).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Advanced search tab</td><td>Enter a search phrase or topic. Advanced search matches by <b>meaning</b>, so reports that use different words for the same thing are found too.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Found &hellip; reports</td><td>How many reports match your topic. Results arrive in pages &mdash; <b>Load more</b> brings the next set.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Expanded topic</td><td>The tool shows exactly what it searched for: your phrase expanded into the related terms and situations it looked for (planned home delivery, domiciliary childbirth, delayed transfer from home to hospital&hellip;). You always know what the results represent.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Relevance badge</td><td>Why each report matched: <b>Keyword</b> &mdash; it contains your exact words; <b>Semantic</b> &mdash; it is about your topic but worded differently. Semantic matches are the reports a keyword search alone would miss.</td></tr>
+  </table>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">3 of 13</div>
+</div>
+
+<!-- ═══════ PAGE 3 — OPENING A REPORT: OVERVIEW & FILES ═══════ -->
+<div class="page">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="l2x7"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#l2x7)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; the Home page</b><span>Opening a report</span></div>
+  </div>
+  <div class="rule"></div>
+
+  <h1>Opening a report: the Overview and Files tabs</h1>
+  <p class="lede">Clicking a report&rsquo;s title opens the report window. It has three tabs: <b>Overview</b> (the report and its key facts), <b>Information extraction evidence</b> (how each fact was obtained &mdash; page 4), and <b>Files</b> (the original documents).</p>
+
+  <figure>
+    <svg viewBox="0 0 1000 470" width="100%" role="img" aria-label="Annotated diagram of the report window, Overview tab">
+      <rect x="30" y="8" width="940" height="452" rx="8" fill="#fff" stroke="#C9D0DC"/>
+      <text x="60" y="44" font-size="17" fill="#0B0C0C" font-weight="700">Alex Example: Prevention of future deaths report</text>
+      <circle cx="938" cy="38" r="12" fill="none" stroke="#9AA3AF" stroke-width="1.5"/>
+      <text x="938" y="43" text-anchor="middle" font-size="12" fill="#9AA3AF">&#10005;</text>
+      <text x="62" y="76" font-size="11.5" fill="#1F3864" font-weight="700">Overview</text>
+      <rect x="60" y="82" width="62" height="2.5" fill="#5A57C9"/>
+      <text x="150" y="76" font-size="11.5" fill="#3A4050">Information extraction evidence</text>
+      <text x="352" y="76" font-size="11.5" fill="#3A4050">Files</text>
+      <line x1="50" y1="88" x2="950" y2="88" stroke="#E3E7EE" stroke-width="1.5"/>
+      <g font-size="8" fill="#5E6676" letter-spacing="1" font-weight="700">
+        <text x="62" y="112">THE REPORT</text>
+        <text x="62" y="212">THE DECEASED</text>
+        <text x="62" y="322">THE CIRCUMSTANCES</text>
+        <text x="62" y="392">THE INVESTIGATION</text>
+      </g>
+      <g font-size="10" fill="#5E6676">
+        <text x="62" y="132">Reference</text><text x="150" y="132" fill="#0B0C0C">2026-0266</text>
+        <text x="62" y="150">Reported</text><text x="150" y="150" fill="#0B0C0C">2 July 2026</text>
+        <text x="62" y="168">Published</text><text x="150" y="168" fill="#0B0C0C">17 July 2026</text>
+        <text x="62" y="186">Source</text><text x="150" y="186" fill="#1F3864" text-decoration="underline">judiciary.uk &#8599;</text>
+        <text x="62" y="232">Name</text><text x="150" y="232" fill="#0B0C0C">Alex Example</text>
+        <text x="62" y="250">Age</text><text x="150" y="250" fill="#0B0C0C">51</text>
+        <text x="62" y="268">Gender</text><text x="150" y="268" fill="#0B0C0C">Female</text>
+        <text x="62" y="286">Ethnicity</text><text x="150" y="286" fill="#8A93A8" font-style="italic">Not stated</text>
+        <text x="62" y="306" fill="#3A4050">&#9656; Protected characteristics</text>
+        <text x="62" y="340" fill="#5E6676">Cause of death</text>
+        <text x="62" y="356" fill="#0B0C0C">Natural cause, exacerbated by self-neglect</text>
+        <text x="62" y="374" fill="#5E6676">Category</text><text x="140" y="374" fill="#0B0C0C">Mental Health related deaths</text>
+        <text x="62" y="412">Coroner</text><text x="150" y="412" fill="#0B0C0C">Nicholas Sample</text>
+        <text x="62" y="430">Coroner area</text><text x="150" y="430" fill="#0B0C0C">Oxfordshire</text>
+        <text x="62" y="448">NHS region</text><text x="150" y="448" fill="#0B0C0C">South East</text>
+      </g>
+      <line x1="60" y1="196" x2="470" y2="196" stroke="#E9ECF1"/>
+      <line x1="60" y1="314" x2="470" y2="314" stroke="#E9ECF1"/>
+      <line x1="60" y1="384" x2="470" y2="384" stroke="#E9ECF1"/>
+      <rect x="520" y="102" width="88" height="24" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="564" y="118" text-anchor="middle" font-size="9.5" fill="#3A4050">Original PDF</text>
+      <rect x="608" y="102" width="82" height="24" rx="3" fill="#EDEDF7" stroke="#C9D0DC"/>
+      <text x="649" y="118" text-anchor="middle" font-size="9.5" fill="#1F3864" font-weight="600">Report text</text>
+      <rect x="520" y="136" width="420" height="316" rx="4" fill="#FAFBFC" stroke="#E3E7EE"/>
+      <text x="545" y="160" font-size="9.5" fill="#0B0C0C" font-weight="700">REGULATION 28 REPORT TO PREVENT FUTURE DEATHS</text>
+      <line x1="536" y1="172" x2="924" y2="172" stroke="#E3E7EE"/>
+      <text x="545" y="192" font-size="9" fill="#0B0C0C" font-weight="700">THIS REPORT IS BEING SENT TO:</text>
+      <text x="545" y="206" font-size="9" fill="#3A4050">[REDACTED], Director of Adult Social Services</text>
+      <line x1="536" y1="218" x2="924" y2="218" stroke="#E3E7EE"/>
+      <text x="540" y="240" font-size="9" fill="#5A57C9" font-weight="700">1</text>
+      <text x="558" y="240" font-size="9" fill="#0B0C0C" font-weight="700">CORONER</text>
+      <text x="558" y="254" font-size="9" fill="#3A4050">I am Nicholas Sample, HM Area Coroner, for the</text>
+      <text x="558" y="266" font-size="9" fill="#3A4050">coroner area of Oxfordshire.</text>
+      <line x1="536" y1="278" x2="924" y2="278" stroke="#E3E7EE"/>
+      <text x="540" y="300" font-size="9" fill="#5A57C9" font-weight="700">4</text>
+      <text x="558" y="300" font-size="9" fill="#0B0C0C" font-weight="700">CIRCUMSTANCES OF THE DEATH</text>
+      <text x="558" y="314" font-size="9" fill="#3A4050">Ms Example was 51 years old when she was found</text>
+      <text x="558" y="326" font-size="9" fill="#3A4050">deceased at her home address&hellip;</text>
+      <line x1="536" y1="340" x2="924" y2="340" stroke="#E3E7EE"/>
+      <text x="540" y="362" font-size="9" fill="#5A57C9" font-weight="700">5</text>
+      <text x="558" y="362" font-size="9" fill="#0B0C0C" font-weight="700">CORONER&#8217;S CONCERNS</text>
+      <rect x="556" y="370" width="30" height="13" fill="#FFF176"/>
+      <text x="558" y="380" font-size="9" fill="#3A4050">CQC</text>
+      <text x="590" y="380" font-size="9" fill="#3A4050">accepted the lack of an action plan from the</text>
+      <text x="558" y="393" font-size="9" fill="#3A4050">provider; no action plan was received&hellip;</text>
+      <defs>
+        <marker id="ahBx8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="415" y1="60" x2="380" y2="70" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahBx8)"/>
+        <circle cx="426" cy="57" r="11" fill="#5A57C9"/><text x="426" y="61" text-anchor="middle" fill="#fff">1</text>
+        <line x1="284" y1="150" x2="248" y2="150" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahBx8)"/>
+        <circle cx="296" cy="150" r="11" fill="#5A57C9"/><text x="296" y="154" text-anchor="middle" fill="#fff">2</text>
+        <line x1="300" y1="286" x2="262" y2="296" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahBx8)"/>
+        <circle cx="312" cy="283" r="11" fill="#5A57C9"/><text x="312" y="287" text-anchor="middle" fill="#fff">3</text>
+        <line x1="474" y1="114" x2="512" y2="114" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahBx8)"/>
+        <circle cx="462" cy="114" r="11" fill="#5A57C9"/><text x="462" y="118" text-anchor="middle" fill="#fff">4</text>
+        <line x1="500" y1="240" x2="532" y2="240" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahBx8)"/>
+        <circle cx="488" cy="240" r="11" fill="#5A57C9"/><text x="488" y="244" text-anchor="middle" fill="#fff">5</text>
+        <line x1="500" y1="376" x2="548" y2="376" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahBx8)"/>
+        <circle cx="488" cy="376" r="11" fill="#5A57C9"/><text x="488" y="380" text-anchor="middle" fill="#fff">6</text>
+      </g>
+    </svg>
+    <figcaption>The report window, Overview tab (content illustrative; names invented).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">The three tabs</td><td><b>Overview</b> &mdash; the report and its key facts side by side. <b>Information extraction evidence</b> &mdash; how every fact was obtained, with the evidence (page 4). <b>Files</b> &mdash; the original documents: the main report PDF and each published <b>response</b>, with View and Download buttons for every file.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">The report&rsquo;s facts</td><td>Reference, the date <b>reported</b> (when the coroner wrote it) and the date <b>published</b> (when it appeared online) &mdash; shown separately &mdash; plus a <b>Source</b> link that opens the report&rsquo;s own page on judiciary.uk.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">The deceased &amp; circumstances</td><td>Name, age, gender and ethnicity <b>as stated in the report</b> &mdash; &ldquo;Not stated&rdquo; means exactly that; the tool never guesses. &ldquo;Protected characteristics&rdquo; expands to show any Equality Act facts the report states. Below: cause of death, disability or condition, drugs, category, coroner, area and NHS region &mdash; and, under the NHS category system, the report&rsquo;s <b>NHS category</b> and its <b>Healthcare speciality</b>.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Original PDF / Report text</td><td>Switch between the <b>original document</b> exactly as published and the <b>Report text</b> &mdash; the extracted text that <b>makes the report searchable</b>: this is what Keyword and Advanced search look through, what your search words are highlighted in, and where Ctrl&nbsp;+&nbsp;F / &#8984;&nbsp;+&nbsp;F works &mdash; including for scanned PDFs, whose original file contains no searchable text at all. The original stays alongside for comparison.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Numbered sections</td><td>The report text follows the standard Regulation 28 sections (Coroner, Legal powers, Investigation, Circumstances, Concerns&hellip;), numbered for easy reference.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Highlighted words</td><td>Your search words are highlighted in the text &mdash; so you can see at once why this report matched your search.</td></tr>
+  </table>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">4 of 13</div>
+</div>
+
+<!-- ═══════ PAGE 3 — EVIDENCE TAB + EXAMPLE ═══════ -->
+<div class="page">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="l3x9"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#l3x9)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; the Home page</b><span>The evidence behind every fact</span></div>
+  </div>
+  <div class="rule"></div>
+
+  <h1>The Information extraction evidence tab: where every fact comes from</h1>
+  <p class="lede">This tab shows the source of every recorded fact &mdash; which part of the report it was read from, with a link to the exact sentence behind each value.</p>
+
+  <figure>
+    <svg viewBox="0 0 1000 400" width="100%" role="img" aria-label="Annotated diagram of the evidence tab">
+      <rect x="30" y="6" width="940" height="388" rx="8" fill="#fff" stroke="#C9D0DC"/>
+      <text x="60" y="34" font-size="9" fill="#5E6676" letter-spacing="1" font-weight="700">KEY DETAILS</text>
+      <g font-size="8.5" fill="#5E6676" letter-spacing=".5" font-weight="700">
+        <text x="60" y="58">FIELD</text>
+        <text x="260" y="58">RULE-BASED</text>
+        <text x="470" y="58">LANGUAGE MODEL</text>
+        <text x="720" y="58">USED</text>
+      </g>
+      <line x1="50" y1="66" x2="950" y2="66" stroke="#E3E7EE"/>
+      <g font-size="10">
+        <text x="60" y="88" fill="#0B0C0C" font-weight="600">Coroner area</text>
+        <text x="260" y="88" fill="#3A4050">Oxfordshire</text>
+        <text x="470" y="88" fill="#3A4050">Oxfordshire</text>
+        <rect x="464" y="98" width="58" height="14" rx="2" fill="#EDEDF7"/>
+        <text x="493" y="108" text-anchor="middle" font-size="7.5" fill="#5A57C9" font-weight="700">EVIDENCE</text>
+        <text x="530" y="108" font-size="9" fill="#1F3864">&#8594; from the page header</text>
+        <rect x="712" y="74" width="226" height="26" rx="3" fill="#F4F6F9"/>
+        <text x="722" y="91" fill="#1F3864" font-weight="700">Oxfordshire</text>
+        <text x="812" y="91" font-size="8.5" fill="#5E6676">From: Rule-based</text>
+      </g>
+      <line x1="50" y1="120" x2="950" y2="120" stroke="#EFF1F5"/>
+      <g font-size="10">
+        <text x="60" y="142" fill="#0B0C0C" font-weight="600">Category</text>
+        <text x="260" y="142" fill="#9AA3AF">&mdash;</text>
+        <text x="470" y="142" fill="#3A4050">Mental Health related deaths</text>
+        <rect x="464" y="152" width="58" height="14" rx="2" fill="#EDEDF7"/>
+        <text x="493" y="162" text-anchor="middle" font-size="7.5" fill="#5A57C9" font-weight="700">EVIDENCE</text>
+        <text x="530" y="162" font-size="9" fill="#1F3864">&#8594; sentence 19</text>
+        <rect x="712" y="128" width="226" height="26" rx="3" fill="#F4F6F9"/>
+        <text x="722" y="145" fill="#1F3864" font-weight="700">Mental Health related deaths</text>
+        <text x="722" y="160" font-size="8.5" fill="#5E6676">From: Language model</text>
+      </g>
+      <line x1="50" y1="174" x2="950" y2="174" stroke="#EFF1F5"/>
+      <g font-size="10">
+        <text x="60" y="196" fill="#0B0C0C" font-weight="600">Age</text>
+        <text x="260" y="196" fill="#9AA3AF">&mdash;</text>
+        <text x="470" y="196" fill="#3A4050">51</text>
+        <rect x="464" y="206" width="58" height="14" rx="2" fill="#EDEDF7"/>
+        <text x="493" y="216" text-anchor="middle" font-size="7.5" fill="#5A57C9" font-weight="700">EVIDENCE</text>
+        <text x="530" y="216" font-size="9" fill="#1F3864" font-style="italic">&#8220;51 years old&#8221; &#8594; sentence 14</text>
+        <rect x="712" y="182" width="226" height="26" rx="3" fill="#F4F6F9"/>
+        <text x="722" y="199" fill="#1F3864" font-weight="700">51</text>
+        <text x="746" y="199" font-size="8.5" fill="#5E6676">From: Language model</text>
+      </g>
+      <line x1="50" y1="228" x2="950" y2="228" stroke="#E3E7EE"/>
+      <text x="60" y="252" font-size="8.5" fill="#5E6676" letter-spacing="1" font-weight="700">PAGE HEADER</text>
+      <rect x="60" y="260" width="380" height="70" rx="4" fill="#FAFBFC" stroke="#E3E7EE"/>
+      <g font-size="8.5" fill="#3A4050">
+        <text x="72" y="277">Date of report: 02/07/2026 &middot; Ref: 2026-0266</text>
+        <text x="72" y="292">Deceased name: Alex Example</text>
+        <text x="72" y="307">Coroner name: Nicholas Sample</text>
+        <text x="72" y="322">Coroner Area: Oxfordshire</text>
+      </g>
+      <text x="470" y="252" font-size="8.5" fill="#5E6676" letter-spacing="1" font-weight="700">SENTENCE SEGMENTATION</text>
+      <rect x="470" y="260" width="150" height="110" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <rect x="470" y="260" width="150" height="20" fill="#F4F6F9"/>
+      <text x="478" y="274" font-size="8.5" fill="#3A4050" font-weight="600">Rule-based</text>
+      <text x="606" y="274" text-anchor="end" font-size="8.5" fill="#5E6676">40</text>
+      <g stroke="#D9DEE6" stroke-width="1.6">
+        <line x1="480" y1="292" x2="608" y2="292"/><line x1="480" y1="306" x2="596" y2="306"/>
+        <line x1="480" y1="320" x2="608" y2="320"/><line x1="480" y1="334" x2="580" y2="334"/>
+      </g>
+      <rect x="632" y="260" width="150" height="110" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <rect x="632" y="260" width="150" height="20" fill="#F4F6F9"/>
+      <text x="640" y="274" font-size="8.5" fill="#3A4050" font-weight="600">Language model</text>
+      <text x="768" y="274" text-anchor="end" font-size="8.5" fill="#5A57C9" font-weight="700">64</text>
+      <rect x="640" y="298" width="134" height="14" fill="#EDEDF7"/>
+      <g stroke="#D9DEE6" stroke-width="1.6">
+        <line x1="642" y1="292" x2="770" y2="292"/><line x1="642" y1="320" x2="758" y2="320"/>
+        <line x1="642" y1="334" x2="770" y2="334"/><line x1="642" y1="348" x2="742" y2="348"/>
+      </g>
+      <rect x="794" y="260" width="150" height="110" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <rect x="794" y="260" width="150" height="20" fill="#3A4050"/>
+      <text x="802" y="274" font-size="8.5" fill="#fff" font-weight="600">Original PDF</text>
+      <rect x="806" y="290" width="126" height="68" fill="#fff" stroke="#C9D0DC"/>
+      <g stroke="#C9D0DC" stroke-width="1.4">
+        <line x1="814" y1="302" x2="924" y2="302"/><line x1="814" y1="314" x2="912" y2="314"/>
+        <line x1="814" y1="326" x2="924" y2="326"/><line x1="814" y1="338" x2="900" y2="338"/>
+      </g>
+      <defs>
+        <marker id="ahCx10" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="380" y1="40" x2="420" y2="52" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahCx10)"/>
+        <circle cx="368" cy="36" r="11" fill="#5A57C9"/><text x="368" y="40" text-anchor="middle" fill="#fff">1</text>
+        <line x1="676" y1="40" x2="726" y2="70" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahCx10)"/>
+        <circle cx="665" cy="35" r="11" fill="#5A57C9"/><text x="665" y="39" text-anchor="middle" fill="#fff">2</text>
+        <line x1="420" y1="216" x2="456" y2="212" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahCx10)"/>
+        <circle cx="408" cy="217" r="11" fill="#5A57C9"/><text x="408" y="221" text-anchor="middle" fill="#fff">3</text>
+        <line x1="180" y1="352" x2="150" y2="330" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahCx10)"/>
+        <circle cx="188" cy="360" r="11" fill="#5A57C9"/><text x="188" y="364" text-anchor="middle" fill="#fff">4</text>
+        <line x1="700" y1="386" x2="700" y2="372" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahCx10)"/>
+        <circle cx="700" cy="390" r="11" fill="#5A57C9"/><text x="700" y="394" text-anchor="middle" fill="#fff">5</text>
+      </g>
+    </svg>
+    <figcaption>The Information extraction evidence tab (content illustrative; names invented).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Two independent readings</td><td>Each fact is read twice: a <b>rule-based</b> reading of the report&rsquo;s published header, and a <b>language-model</b> reading of the whole document. Seeing both side by side shows where they agree &mdash; and where only one could find the fact.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">The &ldquo;Used&rdquo; column</td><td>The value the tool actually recorded, labelled with its origin: <b>Rule-based</b> (from the published header &mdash; preferred when available), <b>Language model</b> (read from the report text), or <b>Derived</b> (computed, e.g. NHS region from the coroner area). The published header always takes precedence over the language model.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Evidence links</td><td>Every value carries its evidence: the exact quoted words and a link to the numbered sentence they appear in (e.g. <i>&ldquo;51 years old&rdquo; &rarr; sentence 14</i>), or &ldquo;from the page header&rdquo;. One click takes you to the sentence the fact came from.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Page header</td><td>The report&rsquo;s header block as published on judiciary.uk &mdash; the authoritative source for reference, dates, names and area.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Sentence segmentation</td><td>The report text split into numbered sentences by both methods, shown beside the <b>original PDF</b>. Clicking an evidence link highlights the exact sentence here.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Missing values are found &mdash; and labelled</td><td>Where the website entry lacks a value, the tool fills it from the next-best source and says so. Example: many reports carried <b>no category</b> &mdash; the tool detects the best-fitting category from the judiciary website&rsquo;s own list <b>from the report&rsquo;s own text</b> (in the picture above: &ldquo;Mental Health related deaths&rdquo;, evidence &rarr; sentence 19, labelled <i>From: Language model</i>). A found value is always distinguishable from a published one, and a fact stated nowhere stays blank &mdash; it is never invented. And even where a category could not be detected at all, the report is <b>still found by search</b>: Keyword and Advanced search work on the report&rsquo;s full text and meaning, not its category &mdash; a report about a topic is retrieved even if no category says so.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.8pt;line-height:1.5">
+    <b style="color:var(--navy)">A worked example.</b>
+    Search <b>CQC</b> &mdash; 432 matches at the time of writing. Open one, and every mention is highlighted: in the report pictured on page 2, the concern that the <b>CQC accepted the lack of an action plan from the provider, and never received one</b> (pictured on page 3). Within the text, jump between words with <b>Ctrl&nbsp;+&nbsp;F</b> (Windows) or <b>&#8984;&nbsp;+&nbsp;F</b> (Mac). <b>Files</b> holds the original PDF and any published CQC response. The same works for any organisation, condition or circumstance &mdash; though note a common phrase like &ldquo;NHS England&rdquo; matches many reports through routine recipient lists; for broad questions use <b>Advanced search</b> instead.
+  </div>
+
+  <div style="margin-top:7px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.8pt;line-height:1.5">
+    <b style="color:var(--navy)">Downloading the extracted data.</b>
+    Add reports to a <b>Project</b> (View / create projects in the menu) and the downloads become available: the <b>extracted data as a shareable Excel workbook</b> (a Dataset sheet, plus an evidence sheet for every column showing where each value came from), the <b>factors &amp; annotations as a CSV</b> (the reviewed contributory factors with their supporting sentences), and a <b>Theme annotation workbook</b> (the reviewed themes with their evidence) &mdash; all ready for your own analysis or reporting.
+  </div>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">5 of 13</div>
+</div>
+
+<!-- ═══════ PAGE 1 — THE DASHBOARD ═══════ -->
+<div class="page" id="sec-3">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="lx11"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#lx11)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Analysis &amp; dashboard</b><span>July 2026</span></div>
+  </div>
+  <div class="rule"></div>
+  <div class="gnav"><a href="#sec-1">1 &middot; Getting started</a><a href="#sec-2">2 &middot; Home</a><span class="on">3 &middot; Analysis &amp; dashboard</span><a href="#sec-4">4 &middot; Projects</a><a href="#sec-5">5 &middot; Factor annotation</a><a href="#sec-6">6 &middot; Factor analysis</a><a href="#sec-7">7 &middot; Theme annotation</a><a href="#sec-8">8 &middot; Theme analysis</a></div>
+  <div class="gloc">This sheet &mdash; part 3 of 8 of the Lense.ai user guide &mdash; covers: Menu &#9656; <b>Analysis &amp; dashboard</b></div>
+
+
+  <h1>Analysis &amp; dashboard: your search, in charts</h1>
+  <p class="lede">The dashboard charts whatever you are currently looking at. <b>Your search and filters carry over from the Home page</b> &mdash; open the dashboard after searching &ldquo;home birth&rdquo; and the charts show those reports (here, 52 records) until you change the search or clear the filters. Change anything here and every chart updates at once.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 448" width="100%" role="img" aria-label="Annotated diagram of the dashboard">
+      <!-- search + filters row -->
+      <rect x="40" y="6" width="118" height="24" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="99" y="22" text-anchor="middle" font-size="10" fill="#3A4050">Keyword search</text>
+      <rect x="158" y="6" width="124" height="24" rx="3" fill="#5A57C9"/>
+      <text x="220" y="22" text-anchor="middle" font-size="10" fill="#fff" font-weight="600">Advanced search</text>
+      <rect x="40" y="38" width="300" height="28" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <circle cx="57" cy="52" r="5" fill="none" stroke="#8A93A8" stroke-width="1.6"/>
+      <line x1="61" y1="56" x2="66" y2="61" stroke="#8A93A8" stroke-width="1.6"/>
+      <text x="75" y="56" font-size="10" fill="#3A4050">home birth</text>
+      <text x="326" y="56" font-size="11" fill="#8A93A8">&#10005;</text>
+
+      <text x="40" y="92" font-size="8.5" fill="#5E6676" font-weight="700" letter-spacing="1">SELECT A PROJECT</text>
+      <rect x="40" y="100" width="210" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="52" y="117" font-size="10" fill="#5E6676">No project selected</text>
+      <text x="236" y="118" font-size="9" fill="#8A93A8">&#9662;</text>
+
+      <text x="480" y="18" font-size="9" fill="#5E6676" font-weight="700" letter-spacing="1">FILTER BY:</text>
+      <text x="548" y="18" font-size="8.5" fill="#5E6676">Category system:</text>
+      <rect x="620" y="9" width="52" height="13" rx="3" fill="#5A57C9"/><text x="646" y="19" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">Judiciary</text>
+      <rect x="674" y="9" width="34" height="13" rx="3" fill="#fff" stroke="#C9D0DC"/><text x="691" y="19" text-anchor="middle" font-size="8" fill="#3A4050">NHS</text>
+      <text x="480" y="42" font-size="9" fill="#0B0C0C">Category &#9662; &nbsp; <tspan fill="#5A57C9" font-weight="600">Healthcare speciality &#9662;</tspan> &nbsp; NHS region &#9662; &nbsp; Coroner area &#9662; &nbsp; Coroner name &#9662;</text>
+      <!-- dropdown: healthcare speciality -->
+      <rect x="558" y="52" width="196" height="118" rx="4" fill="#fff" stroke="#C9D0DC"/>
+      <text x="570" y="70" font-size="9" fill="#8A93A8">Search healthcare speciality</text>
+      <text x="728" y="70" font-size="9" fill="#1F3864" text-decoration="underline">Clear</text>
+      <line x1="558" y1="78" x2="754" y2="78" stroke="#E3E7EE"/>
+      <text x="586" y="94" font-size="9.5" fill="#3A4050">Emergency Department</text>
+      <text x="570" y="112" font-size="9.5" fill="#5A57C9">&#10003;</text><text x="586" y="112" font-size="9.5" fill="#5A57C9" font-weight="600">Cardiac</text>
+      <text x="586" y="130" font-size="9.5" fill="#3A4050">Anaesthesia</text>
+      <text x="570" y="148" font-size="9.5" fill="#5A57C9">&#10003;</text><text x="586" y="148" font-size="9.5" fill="#5A57C9" font-weight="600">Mental Health &ndash; Community</text>
+      <text x="586" y="164" font-size="9.5" fill="#3A4050">Cancer &hellip;</text>
+      <!-- active chips -->
+      <text x="770" y="94" font-size="9" fill="#5E6676">Active filters:</text>
+      <rect x="770" y="100" width="58" height="18" rx="3" fill="#EDEDF7"/>
+      <text x="778" y="113" font-size="9" fill="#1F3864">Cardiac &#10005;</text>
+      <rect x="834" y="100" width="150" height="18" rx="3" fill="#EDEDF7"/>
+      <text x="842" y="113" font-size="9" fill="#1F3864">Mental Health &ndash; Community &#10005;</text>
+      <text x="770" y="136" font-size="9" fill="#1F3864" text-decoration="underline">Clear all</text>
+
+      <!-- chart panel -->
+      <rect x="40" y="184" width="920" height="244" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="208" font-size="11" fill="#0B0C0C" font-weight="700">Reports over time</text>
+      <text x="56" y="222" font-size="8.5" fill="#5E6676">By Date of Report</text>
+      <text x="56" y="235" font-size="8.5" fill="#5E6676">52 records across 41 months</text>
+      <!-- controls -->
+      <g font-size="9">
+        <rect x="560" y="196" width="34" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="577" y="210" text-anchor="middle" fill="#3A4050">Day</text>
+        <rect x="596" y="196" width="42" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="617" y="210" text-anchor="middle" fill="#3A4050">Week</text>
+        <rect x="640" y="196" width="46" height="20" rx="3" fill="#EDEDF7" stroke="#C9D0DC"/><text x="663" y="210" text-anchor="middle" fill="#1F3864" font-weight="600">Month</text>
+        <rect x="700" y="196" width="86" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="743" y="210" text-anchor="middle" fill="#3A4050">Chart type &#8599;</text>
+        <rect x="796" y="196" width="98" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="845" y="210" text-anchor="middle" fill="#3A4050">Download image</text>
+        <rect x="898" y="196" width="54" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="925" y="210" text-anchor="middle" fill="#3A4050">CSV &#8595;</text>
+      </g>
+      <!-- line chart -->
+      <line x1="76" y1="404" x2="944" y2="404" stroke="#E3E7EE"/>
+      <line x1="76" y1="256" x2="76" y2="404" stroke="#E3E7EE"/>
+      <text x="66" y="262" text-anchor="end" font-size="8" fill="#8A93A8">3</text>
+      <text x="66" y="310" text-anchor="end" font-size="8" fill="#8A93A8">2</text>
+      <text x="66" y="358" text-anchor="end" font-size="8" fill="#8A93A8">1</text>
+      <polyline points="90,308 130,356 170,308 210,258 250,308 290,356 340,356 390,356 440,308 490,356 540,356 590,308 640,356 690,308 740,356 790,308 840,356 890,308 935,356"
+        fill="none" stroke="#5A57C9" stroke-width="2"/>
+      <g fill="#5A57C9">
+        <circle cx="90" cy="308" r="2.6"/><circle cx="130" cy="356" r="2.6"/><circle cx="170" cy="308" r="2.6"/>
+        <circle cx="210" cy="258" r="2.6"/><circle cx="250" cy="308" r="2.6"/><circle cx="290" cy="356" r="2.6"/>
+        <circle cx="340" cy="356" r="2.6"/><circle cx="390" cy="356" r="2.6"/><circle cx="440" cy="308" r="2.6"/>
+        <circle cx="490" cy="356" r="2.6"/><circle cx="540" cy="356" r="2.6"/><circle cx="590" cy="308" r="2.6"/>
+        <circle cx="640" cy="356" r="2.6"/><circle cx="690" cy="308" r="2.6"/><circle cx="740" cy="356" r="2.6"/>
+        <circle cx="790" cy="308" r="2.6"/><circle cx="840" cy="356" r="2.6"/><circle cx="890" cy="308" r="2.6"/>
+      </g>
+      <g font-size="7.5" fill="#8A93A8">
+        <text x="90" y="418" transform="rotate(-30 90 418)">Aug 2013</text>
+        <text x="290" y="418" transform="rotate(-30 290 418)">Apr 2016</text>
+        <text x="490" y="418" transform="rotate(-30 490 418)">Jun 2020</text>
+        <text x="690" y="418" transform="rotate(-30 690 418)">Jul 2023</text>
+        <text x="890" y="418" transform="rotate(-30 890 418)">Feb 2026</text>
+      </g>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ahx12" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="374" y1="52" x2="346" y2="52" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx12)"/>
+        <circle cx="386" cy="52" r="11" fill="#5A57C9"/><text x="386" y="56" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="286" y1="113" x2="256" y2="113" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx12)"/>
+        <circle cx="298" cy="113" r="11" fill="#5A57C9"/><text x="298" y="117" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="524" y1="120" x2="552" y2="112" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx12)"/>
+        <circle cx="513" cy="123" r="11" fill="#5A57C9"/><text x="513" y="127" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="948" y1="140" x2="932" y2="122" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx12)"/>
+        <circle cx="952" cy="150" r="11" fill="#5A57C9"/><text x="952" y="154" text-anchor="middle" fill="#fff">4</text>
+
+        <line x1="176" y1="240" x2="150" y2="232" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx12)"/>
+        <circle cx="188" cy="243" r="11" fill="#5A57C9"/><text x="188" y="247" text-anchor="middle" fill="#fff">5</text>
+
+        <line x1="530" y1="230" x2="580" y2="212" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx12)"/>
+        <circle cx="519" cy="234" r="11" fill="#5A57C9"/><text x="519" y="238" text-anchor="middle" fill="#fff">6</text>
+
+        <line x1="240" y1="278" x2="214" y2="264" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx12)"/>
+        <circle cx="252" cy="283" r="11" fill="#5A57C9"/><text x="252" y="287" text-anchor="middle" fill="#fff">7</text>
+      </g>
+    </svg>
+    <figcaption>The dashboard with a search carried over from Home (&ldquo;home birth&rdquo;, 52 records; regions Midlands and London selected).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Search &mdash; carried from Home</td><td>The dashboard opens with <b>the same search and filters you had on Home</b>, so the charts describe exactly the reports you were just looking at. Type a new search, or <b>&#10005;</b> to clear, and every chart updates.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Select a project</td><td>Limit the whole dashboard to one of your <b>Projects</b> (a curated set of reports) instead of the full archive &mdash; and <b>search and filters combine with it</b>: select a project, then search <i>within</i> it. Example: project &ldquo;learning disability&rdquo; + Advanced search &ldquo;birthday&rdquo; &rarr; the 9 reports in that project matching that topic, charted. The record count at the top right always shows what is currently selected.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Filters</td><td>The same filters as Home: a <b>Category system</b> switch (Judiciary or NHS), <b>Category</b>, <b>Healthcare speciality</b>, <b>NHS region</b>, <b>Coroner area</b>, <b>Coroner name</b>, and <b>date of report or date of death</b>. Filter menus are searchable, with <b>Clear</b> per menu; ticks show what is selected.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Active filters</td><td>Every applied filter shows as a chip &mdash; remove one with its <b>&#10005;</b>, or <b>Clear all</b>.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Record count</td><td>Each chart states what it is counting &mdash; here &ldquo;52 records across 41 months&rdquo; &mdash; so you always know the scope behind the picture.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Chart controls</td><td><b>Day / Week / Month</b> sets the time granularity; <b>Chart type</b> switches the presentation (line / bars).</td></tr>
+    <tr><td class="n"><i>7</i></td><td class="f">Click a point or bar</td><td>Opens the list of <b>the exact reports behind that number</b>; click one to open the same report window as on Home. Every figure on the dashboard can be traced to its reports.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.5pt;line-height:1.5">
+    <b style="color:var(--navy)">Recorded only when stated.</b>
+    The tool extracts <b>more than 20 fields</b> in all. Most &mdash; reference, dates, deceased name, coroner, area, NHS region and category &mdash; come from the published header (or are derived), so they are present for nearly every report. The following are read from the report&rsquo;s <b>own wording</b>, so where a report does not state them they stay blank &mdash; and are therefore absent from that analysis: <b>Date of death</b>, <b>Age</b>, <b>Gender</b>, <b>Ethnicity</b>, <b>Cause of death</b>, <b>disability or condition</b>, <b>drugs</b>, <b>who it was sent to</b> (recipients), <b>hospitals involved</b>, and <b>other protected characteristics</b> (pregnancy, religion or belief&hellip;). A report is included in each analysis for which it states the detail &mdash; nothing is ever guessed to fill a gap.
+  </div>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">6 of 13</div>
+</div>
+
+<!-- ═══════ PAGE 2 — THE OTHER CHARTS ═══════ -->
+<div class="page">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="l2x13"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#l2x13)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Analysis &amp; dashboard</b><span>The six charts</span></div>
+  </div>
+  <div class="rule"></div>
+
+  <h1>The charts, and getting the data out</h1>
+  <p class="lede">Six charts summarise the selected reports: <b>over time</b>, <b>per year</b>, <b>by month</b>, <b>by category</b>, <b>by coroner area</b> and <b>by coroner name</b>. All respond to the same search and filters, and each can be downloaded as a picture or as data.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 330" width="100%" role="img" aria-label="Annotated diagram of the dashboard charts">
+      <!-- per year panel -->
+      <rect x="40" y="0" width="450" height="150" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="54" y="20" font-size="10.5" fill="#0B0C0C" font-weight="700">Reports per year</text>
+      <text x="54" y="33" font-size="8" fill="#5E6676">52 records across 13 years</text>
+      <g font-size="8.5">
+        <rect x="268" y="8" width="66" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="301" y="21" text-anchor="middle" fill="#3A4050">Label: 123</text>
+        <rect x="338" y="8" width="70" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="373" y="21" text-anchor="middle" fill="#3A4050">Image &#8595;</text>
+        <rect x="412" y="8" width="64" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="444" y="21" text-anchor="middle" fill="#3A4050">CSV &#8595;</text>
+      </g>
+      <g fill="#5A57C9">
+        <rect x="64" y="102" width="22" height="34"/><rect x="96" y="112" width="22" height="24"/>
+        <rect x="128" y="92" width="22" height="44"/><rect x="160" y="72" width="22" height="64"/>
+        <rect x="192" y="114" width="22" height="22"/><rect x="224" y="114" width="22" height="22"/>
+        <rect x="256" y="82" width="22" height="54"/><rect x="288" y="104" width="22" height="32"/>
+        <rect x="320" y="104" width="22" height="32"/><rect x="352" y="52" width="22" height="84"/>
+        <rect x="384" y="72" width="22" height="64"/><rect x="416" y="72" width="22" height="64"/>
+      </g>
+      <g font-size="7.5" fill="#3A4050" text-anchor="middle">
+        <text x="75" y="98">3</text><text x="107" y="108">2</text><text x="139" y="88">4</text><text x="171" y="68">6</text>
+        <text x="363" y="48">8</text><text x="395" y="68">6</text><text x="427" y="68">6</text>
+      </g>
+      <line x1="56" y1="136" x2="476" y2="136" stroke="#E3E7EE"/>
+
+      <!-- by category panel -->
+      <rect x="510" y="0" width="450" height="150" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="524" y="20" font-size="10.5" fill="#0B0C0C" font-weight="700">Reports by category</text>
+      <text x="524" y="33" font-size="8" fill="#5E6676">7 categories across 52 records</text>
+      <g fill="#5A57C9">
+        <rect x="548" y="52" width="26" height="84"/><rect x="608" y="52" width="26" height="84"/>
+        <rect x="668" y="128" width="26" height="8"/><rect x="728" y="128" width="26" height="8"/>
+        <rect x="788" y="132" width="26" height="4"/><rect x="848" y="132" width="26" height="4"/><rect x="900" y="132" width="26" height="4"/>
+      </g>
+      <g font-size="7.5" fill="#3A4050" text-anchor="middle">
+        <text x="561" y="48">38</text><text x="621" y="48">38</text><text x="681" y="124">2</text><text x="741" y="124">2</text>
+      </g>
+      <line x1="536" y1="136" x2="946" y2="136" stroke="#E3E7EE"/>
+      <g font-size="6.8" fill="#8A93A8" text-anchor="middle">
+        <text x="561" y="146">Child Death</text><text x="621" y="146">Hospital Death</text><text x="681" y="146">Community</text><text x="741" y="146">Emergency</text>
+      </g>
+
+      <!-- by coroner area panel -->
+      <rect x="40" y="166" width="920" height="130" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="54" y="186" font-size="10.5" fill="#0B0C0C" font-weight="700">Reports by coroner area</text>
+      <text x="54" y="199" font-size="8" fill="#5E6676">Showing all 18 areas</text>
+      <g font-size="8.5">
+        <text x="700" y="188" fill="#5E6676">Show top</text>
+        <rect x="748" y="174" width="38" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="767" y="187" text-anchor="middle" fill="#3A4050">18</text>
+        <rect x="796" y="174" width="70" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="831" y="187" text-anchor="middle" fill="#3A4050">Image &#8595;</text>
+        <rect x="872" y="174" width="64" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="904" y="187" text-anchor="middle" fill="#3A4050">CSV &#8595;</text>
+      </g>
+      <g fill="#5A57C9">
+        <rect x="70" y="216" width="24" height="64"/><rect x="118" y="224" width="24" height="56"/>
+        <rect x="166" y="240" width="24" height="40"/><rect x="214" y="248" width="24" height="32"/>
+        <rect x="262" y="248" width="24" height="32"/><rect x="310" y="248" width="24" height="32"/>
+        <rect x="358" y="256" width="24" height="24"/><rect x="406" y="264" width="24" height="16"/>
+        <rect x="454" y="264" width="24" height="16"/><rect x="502" y="272" width="24" height="8"/>
+        <rect x="550" y="272" width="24" height="8"/><rect x="598" y="272" width="24" height="8"/>
+        <rect x="646" y="272" width="24" height="8"/><rect x="694" y="272" width="24" height="8"/>
+        <rect x="742" y="272" width="24" height="8"/><rect x="790" y="272" width="24" height="8"/>
+        <rect x="838" y="272" width="24" height="8"/><rect x="886" y="272" width="24" height="8"/>
+      </g>
+      <g font-size="7.5" fill="#3A4050" text-anchor="middle">
+        <text x="82" y="212">8</text><text x="130" y="220">7</text><text x="178" y="236">5</text><text x="226" y="244">4</text>
+      </g>
+      <line x1="56" y1="280" x2="944" y2="280" stroke="#E3E7EE"/>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ah2x14" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="252" y1="17" x2="264" y2="17" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x14)"/>
+        <circle cx="241" cy="17" r="11" fill="#5A57C9"/><text x="241" y="21" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="672" y1="183" x2="694" y2="183" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x14)"/>
+        <circle cx="661" cy="183" r="11" fill="#5A57C9"/><text x="661" y="187" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="500" y1="60" x2="530" y2="33" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x14)"/>
+        <circle cx="497" cy="70" r="11" fill="#5A57C9"/><text x="497" y="74" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="965" y1="30" x2="948" y2="21" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x14)"/>
+        <circle cx="969" cy="39" r="11" fill="#5A57C9"/><text x="969" y="43" text-anchor="middle" fill="#fff">4</text>
+      </g>
+    </svg>
+    <figcaption>Reports per year, by category and by coroner area for the same 52 selected records (values from the &ldquo;home birth&rdquo; example).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Label toggle &amp; chart type</td><td><b>Label: 123</b> shows or hides the value printed on each bar; <b>Chart type</b> switches between bars and a line.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Show top &hellip;</td><td>On the coroner-area and coroner-name charts, set how many are shown &mdash; the top 10, 18, 30&hellip; The heading confirms the coverage (&ldquo;Showing all 18 areas&rdquo;).</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Consistent counting</td><td>All charts count the <b>same selected reports</b> &mdash; here the 52 &ldquo;home birth&rdquo; records &mdash; by year, month, category, area and coroner. A report with several categories appears under each of them, which is why category counts can exceed the record count.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Download image / CSV</td><td>Every chart exports as a <b>picture</b> (for slides and papers) or as <b>CSV data</b> (for a spreadsheet). The note by each chart flags that the exported image can differ slightly from the on-screen view.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.8pt;line-height:1.5">
+    <b style="color:var(--navy)">A worked example.</b>
+    After the &ldquo;home birth&rdquo; Advanced search (192 matches), filter to the regions you cover &mdash; the charts re-draw for those records: the yearly chart shows the trend (a peak of 8 in 2023 in this example), the category chart shows most fall under Child Death and Hospital Death, and the area chart names the coroner areas involved. Click any bar to open the reports behind it; <b>Download CSV</b> puts the numbers straight into a spreadsheet.
+  </div>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">7 of 13</div>
+</div>
+
+<!-- ═══════ PAGE 1 — THE PROJECTS LIST ═══════ -->
+<div class="page" id="sec-4">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="lx15"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#lx15)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Projects</b><span>July 2026</span></div>
+  </div>
+  <div class="rule"></div>
+  <div class="gnav"><a href="#sec-1">1 &middot; Getting started</a><a href="#sec-2">2 &middot; Home</a><a href="#sec-3">3 &middot; Analysis &amp; dashboard</a><span class="on">4 &middot; Projects</span><a href="#sec-5">5 &middot; Factor annotation</a><a href="#sec-6">6 &middot; Factor analysis</a><a href="#sec-7">7 &middot; Theme annotation</a><a href="#sec-8">8 &middot; Theme analysis</a></div>
+  <div class="gloc">This sheet &mdash; part 4 of 8 of the Lense.ai user guide &mdash; covers: Menu &#9656; PROJECTS &#9656; <b>View / create projects</b></div>
+
+
+  <h1>Projects: your own working sets of reports</h1>
+  <p class="lede">A project is a named set of reports curated for a study, a review or a presentation. Each project is private to the person who created it and the colleagues it is shared with, and everything in the tool (dashboard, searches, downloads) can be scoped to one.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 396" width="100%" role="img" aria-label="Annotated diagram of the Projects page">
+      <!-- top bar -->
+      <rect x="40" y="0" width="560" height="28" rx="14" fill="#fff" stroke="#C9D0DC"/>
+      <circle cx="60" cy="14" r="5" fill="none" stroke="#8A93A8" stroke-width="1.6"/>
+      <line x1="64" y1="18" x2="69" y2="23" stroke="#8A93A8" stroke-width="1.6"/>
+      <text x="78" y="18" font-size="10" fill="#8A93A8">Find a project&hellip;</text>
+      <rect x="612" y="0" width="130" height="28" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="624" y="18" font-size="10" fill="#3A4050">Recently updated &#9662;</text>
+      <rect x="752" y="0" width="104" height="28" rx="3" fill="#5A57C9"/>
+      <text x="804" y="18" text-anchor="middle" font-size="10" fill="#fff" font-weight="600">+ New project</text>
+      <rect x="864" y="0" width="30" height="28" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="879" y="19" text-anchor="middle" font-size="11" fill="#5E6676">&#128465;</text>
+
+      <!-- your projects -->
+      <text x="40" y="58" font-size="10.5" fill="#0B0C0C" font-weight="700">Your projects</text>
+      <text x="40" y="72" font-size="8.5" fill="#5E6676">Visible only to their creator and those they are shared with.</text>
+      <g>
+        <rect x="40" y="84" width="420" height="52" rx="4" fill="#fff" stroke="#E3E7EE"/>
+        <text x="54" y="104" font-size="10.5" fill="#0B0C0C" font-weight="700">learning disability</text><rect x="162" y="94" width="84" height="15" rx="7.5" fill="#5A57C9"/><text x="204" y="105" text-anchor="middle" font-size="7.8" fill="#fff" font-weight="700">14 new reports</text>
+        <text x="54" y="120" font-size="8.5" fill="#5E6676"><tspan font-weight="700" fill="#3A4050">285 reports</tspan> &middot; updated today &middot; shared with 1 colleague</text>
+        <g>
+          <rect x="54" y="126" width="7" height="7" rx="1" fill="#E8B4D8"/><rect x="64" y="126" width="7" height="7" rx="1" fill="#9FD8CB"/>
+          <rect x="74" y="126" width="7" height="7" rx="1" fill="#A9C1E8"/><rect x="84" y="126" width="7" height="7" rx="1" fill="#F2D28F"/>
+        </g>
+        <text x="96" y="133" font-size="7.5" fill="#8A93A8">+7</text>
+        <rect x="424" y="94" width="24" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/>
+        <text x="436" y="107" text-anchor="middle" font-size="10" fill="#5E6676">&#8943;</text>
+      </g>
+      <g>
+        <rect x="40" y="144" width="420" height="46" rx="4" fill="#fff" stroke="#E3E7EE"/>
+        <text x="54" y="164" font-size="10.5" fill="#0B0C0C" font-weight="700">mental health</text>
+        <text x="54" y="180" font-size="8.5" fill="#5E6676"><tspan font-weight="700" fill="#3A4050">73 reports</tspan> &middot; updated 2 wk ago</text>
+      </g>
+      <g>
+        <rect x="40" y="198" width="420" height="46" rx="4" fill="#fff" stroke="#E3E7EE"/>
+        <text x="54" y="218" font-size="10.5" fill="#0B0C0C" font-weight="700">ambulance</text>
+        <text x="54" y="234" font-size="8.5" fill="#5E6676"><tspan font-weight="700" fill="#3A4050">2 reports</tspan> &middot; updated 2 days ago</text>
+      </g>
+
+      <!-- shared with you -->
+      <text x="500" y="58" font-size="10.5" fill="#0B0C0C" font-weight="700">Shared with you</text>
+      <text x="500" y="72" font-size="8.5" fill="#5E6676">Projects colleagues have shared with you.</text>
+      <rect x="500" y="84" width="300" height="52" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="514" y="104" font-size="10.5" fill="#0B0C0C" font-weight="700">Team review set</text>
+      <text x="514" y="120" font-size="8.5" fill="#5E6676"><tspan font-weight="700" fill="#3A4050">44 reports</tspan> &middot; shared by colleague@example.ac.uk</text>
+
+      <!-- kebab menu popup -->
+      <rect x="470" y="150" width="120" height="94" rx="4" fill="#fff" stroke="#C9D0DC"/>
+      <text x="482" y="170" font-size="9.5" fill="#3A4050">Open</text>
+      <text x="482" y="192" font-size="9.5" fill="#3A4050">Duplicate</text>
+      <text x="482" y="214" font-size="9.5" fill="#3A4050">Share&hellip;</text>
+      <text x="482" y="236" font-size="9.5" fill="#8F3232">Move to trash&hellip;</text>
+
+      <!-- new project modal (name-only) -->
+      <rect x="640" y="150" width="330" height="150" rx="6" fill="#fff" stroke="#B9C0CC"/>
+      <text x="658" y="176" font-size="11.5" fill="#0B0C0C" font-weight="700">New project</text>
+      <text x="658" y="200" font-size="8" fill="#5E6676" letter-spacing="1" font-weight="700">NAME</text>
+      <rect x="658" y="206" width="294" height="24" rx="3" fill="#fff" stroke="#5A57C9"/>
+      <text x="666" y="222" font-size="9" fill="#8A93A8">e.g. Mental health &mdash; acute crisis (2026)</text>
+      <text x="658" y="250" font-size="8" fill="#8A93A8">Visible only to its creator and the colleagues it is shared with.</text>
+      <text x="658" y="266" font-size="8" fill="#5E6676">It starts empty &mdash; add reports next in the builder.</text>
+      <rect x="836" y="274" width="116" height="20" rx="3" fill="#5A57C9"/>
+      <text x="894" y="288" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">Create project</text>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ahx16" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="936" y1="14" x2="898" y2="14" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx16)"/>
+        <circle cx="948" cy="14" r="11" fill="#5A57C9"/><text x="948" y="18" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="212" y1="60" x2="184" y2="82" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx16)"/>
+        <circle cx="220" cy="52" r="11" fill="#5A57C9"/><text x="220" y="56" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="672" y1="58" x2="644" y2="80" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx16)"/>
+        <circle cx="680" cy="50" r="11" fill="#5A57C9"/><text x="680" y="54" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="436" y1="140" x2="436" y2="118" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx16)"/>
+        <circle cx="436" cy="152" r="11" fill="#5A57C9"/><text x="436" y="156" text-anchor="middle" fill="#fff">4</text>
+
+        <line x1="612" y1="196" x2="596" y2="196" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx16)"/>
+        <circle cx="624" cy="196" r="11" fill="#5A57C9"/><text x="624" y="200" text-anchor="middle" fill="#fff">5</text>
+
+        <line x1="620" y1="286" x2="652" y2="268" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx16)"/>
+        <circle cx="611" cy="294" r="11" fill="#5A57C9"/><text x="611" y="298" text-anchor="middle" fill="#fff">6</text>
+      </g>
+    </svg>
+    <figcaption>The Projects page with the New-project window and a project&rsquo;s &#8943; menu open (projects illustrative).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Find, sort, trash</td><td>Search your projects by name; sort by recently updated; the bin opens <b>Recently deleted</b> &mdash; deleted projects wait there and can be <b>restored</b>, so nothing is gone for good until you empty the trash.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Your projects</td><td>Each project is private to the person who created it and the colleagues it is shared with. Each card shows the report count, when it was last updated, the categories inside (coloured markers), and who it is shared with. A purple <b>&ldquo;N new reports&rdquo; badge</b> (e.g. &ldquo;14 new reports&rdquo;) flags reports the overnight update has added that <b>match the project&rsquo;s last filter</b>, found in the activity tracker &mdash; see 6.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Shared with you</td><td>Projects colleagues have shared with you, with the sharer&rsquo;s address shown.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">The &#8943; menu</td><td><b>Open</b> the project in the builder; <b>Duplicate</b> it (a safe copy to experiment on); <b>Share&hellip;</b> with colleagues &mdash; note that <b>only registered users can be invited</b>, so a colleague must create their Lense.ai account first; <b>Move to trash</b> (recoverable, see 1).</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">+ New project</td><td>Give the project a <b>name</b> and create it &mdash; that is all it takes. The project opens <b>empty</b> in the builder, where you add reports from the archive (next page). It is private to its creator and the colleagues it is shared with.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Keeping a project current</td><td>A project <b>remembers the search and filters it was last built from</b> &mdash; its <b>latest filter</b>. When the overnight update adds reports that match that filter, they are flagged <b>automatically</b> &mdash; a purple <b>&ldquo;N new reports&rdquo; badge</b> on the project (in the list and the builder header) and a <b>&ldquo;Recently added&rdquo;</b> tag on those reports in the builder &mdash; so you simply review and add them. No manual refresh is needed, and the full history of searches is kept in <b>Project activity</b> (see next page).</td></tr>
+  </table>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">8 of 13</div>
+</div>
+
+<!-- ═══════ PAGE 2 — THE BUILDER ═══════ -->
+<div class="page">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="l2x17"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#l2x17)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Projects</b><span>The project builder</span></div>
+  </div>
+  <div class="rule"></div>
+
+  <h1>The builder: filling and working a project</h1>
+  <p class="lede">Opening a project shows two panels: the <b>whole archive</b> on the left, <b>your project</b> on the right. Search the left, add what belongs; search the right to work within what you have collected.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 358" width="100%" role="img" aria-label="Annotated diagram of the project builder">
+      <!-- header -->
+      <text x="40" y="6" font-size="11.5" fill="#0B0C0C" font-weight="700">learning disability</text>
+      <text x="170" y="6" font-size="8.5" fill="#5E6676">285 reports &middot; saved today</text>
+      <rect x="292" y="-5" width="94" height="15" rx="7.5" fill="#5A57C9"/><text x="339" y="5.5" text-anchor="middle" font-size="7.8" fill="#fff" font-weight="700">14 new reports</text>
+      <g font-size="7.4">
+        <rect x="500" y="-6" width="94" height="16" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="547" y="5" text-anchor="middle" fill="#3A4050">Project activity</text>
+        <rect x="600" y="-6" width="102" height="16" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="651" y="5" text-anchor="middle" fill="#3A4050">Duplicate project</text>
+        <rect x="708" y="-6" width="92" height="16" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="754" y="5" text-anchor="middle" fill="#3A4050">Move to trash&hellip;</text>
+      </g>
+
+      <!-- left panel -->
+      <rect x="40" y="20" width="450" height="310" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="42" font-size="8" fill="#5E6676" letter-spacing="1" font-weight="700">ALL REPORTS</text>
+      <rect x="56" y="52" width="270" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="70" y="69" font-size="9" fill="#8A93A8">Search the full database&hellip;</text>
+      <text x="56" y="98" font-size="7.6" fill="#3A4050">Judiciary / NHS &middot; Category &#9662; &middot; Healthcare speciality &#9662; &middot; NHS region &#9662; &middot; Coroner area &#9662; &middot; Date &#9662;</text>
+      <g font-size="8.5">
+        <rect x="56" y="108" width="76" height="20" rx="3" fill="#F4F6F9" stroke="#D9DEE6"/><text x="94" y="122" text-anchor="middle" fill="#8A93A8">Search first</text>
+        <rect x="136" y="108" width="62" height="20" rx="3" fill="#EDEDF7" stroke="#C9C7EE"/><text x="167" y="122" text-anchor="middle" fill="#5A57C9" font-weight="600">+ Add all</text>
+        <rect x="366" y="108" width="90" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="411" y="122" text-anchor="middle" fill="#3A4050">+ Upload PDFs</text>
+      </g>
+      <g stroke="#EFF1F5"><line x1="56" y1="140" x2="474" y2="140"/><line x1="56" y1="196" x2="474" y2="196"/><line x1="56" y1="252" x2="474" y2="252"/></g>
+      <g font-size="9">
+        <rect x="56" y="150" width="34" height="14" rx="2" fill="#F6E3EF"/><text x="73" y="160" text-anchor="middle" font-size="7.5" fill="#9A4A7D" font-weight="700">MEN</text>
+        <text x="98" y="160" fill="#8A93A8" font-size="8">02/07/2026</text><rect x="200" y="151" width="74" height="12" rx="6" fill="#EDEBF8"/><text x="237" y="160" text-anchor="middle" font-size="6.6" fill="#5A57C9" font-weight="700">Recently added</text>
+        <text x="56" y="178" fill="#1F3864">Alex Example: Prevention of future deaths report</text>
+        <rect x="56" y="206" width="34" height="14" rx="2" fill="#E3EDF6"/><text x="73" y="216" text-anchor="middle" font-size="7.5" fill="#3B6B9A" font-weight="700">HOS</text>
+        <text x="98" y="216" fill="#8A93A8" font-size="8">22/05/2026</text>
+        <text x="56" y="234" fill="#1F3864">Sam Sample: Prevention of future deaths report</text>
+        <rect x="56" y="262" width="34" height="14" rx="2" fill="#E9F6E3"/><text x="73" y="272" text-anchor="middle" font-size="7.5" fill="#4A7D3B" font-weight="700">AWS</text>
+        <text x="98" y="272" fill="#8A93A8" font-size="8">19/05/2026</text>
+        <text x="56" y="290" fill="#1F3864">Jo Case: Prevention of future deaths report</text>
+      </g>
+
+      <!-- right panel -->
+      <rect x="510" y="20" width="450" height="310" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="526" y="42" font-size="8" fill="#5E6676" letter-spacing="1" font-weight="700">IN THIS PROJECT</text>
+      <g font-size="8.5">
+        <rect x="620" y="28" width="102" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="671" y="42" text-anchor="middle" fill="#3A4050">&#128101; Share project &middot; 2</text>
+        <rect x="780" y="28" width="164" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="862" y="42" text-anchor="middle" fill="#3A4050">Extracted metadata (.xlsx) &#8595;</text>
+      </g>
+      <rect x="526" y="56" width="270" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="540" y="73" font-size="9" fill="#8A93A8">Search within this project&hellip;</text>
+      <text x="526" y="100" font-size="7.6" fill="#3A4050">Judiciary / NHS &middot; Category &#9662; &middot; Healthcare speciality &#9662; &middot; NHS region &#9662; &middot; Coroner area &#9662; &middot; Date &#9662;</text>
+      <text x="526" y="122" font-size="9" fill="#5E6676" font-weight="600">283 reports</text>
+      <g stroke="#EFF1F5"><line x1="526" y1="132" x2="944" y2="132"/><line x1="526" y1="188" x2="944" y2="188"/><line x1="526" y1="244" x2="944" y2="244"/></g>
+      <g font-size="9">
+        <rect x="526" y="142" width="34" height="14" rx="2" fill="#E3EDF6"/><text x="543" y="152" text-anchor="middle" font-size="7.5" fill="#3B6B9A" font-weight="700">HOS</text>
+        <text x="568" y="152" fill="#8A93A8" font-size="8">30/09/2019</text>
+        <text x="526" y="170" fill="#1F3864">Julie Example</text>
+        <rect x="526" y="198" width="34" height="14" rx="2" fill="#F2EEDF"/><text x="543" y="208" text-anchor="middle" font-size="7.5" fill="#8A6410" font-weight="700">OTH</text>
+        <rect x="564" y="198" width="34" height="14" rx="2" fill="#E3F0F6"/><text x="581" y="208" text-anchor="middle" font-size="7.5" fill="#3B7D9A" font-weight="700">WAL</text>
+        <text x="606" y="208" fill="#8A93A8" font-size="8">18/09/2025</text>
+        <text x="526" y="226" fill="#1F3864">Pamela Sample: Prevention of future deaths report</text>
+        <rect x="526" y="254" width="34" height="14" rx="2" fill="#E8F6E3"/><text x="543" y="264" text-anchor="middle" font-size="7.5" fill="#4A7D3B" font-weight="700">CHC</text>
+        <text x="568" y="264" fill="#8A93A8" font-size="8">11/07/2025</text>
+        <text x="526" y="282" fill="#1F3864">Myles Case: Prevention of Future Deaths Report</text>
+      </g>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ah2x18" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="360" y1="66" x2="332" y2="66" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x18)"/>
+        <circle cx="372" cy="66" r="11" fill="#5A57C9"/><text x="372" y="70" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="222" y1="118" x2="204" y2="118" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x18)"/>
+        <circle cx="234" cy="118" r="11" fill="#5A57C9"/><text x="234" y="122" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="411" y1="146" x2="411" y2="132" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x18)"/>
+        <circle cx="411" cy="156" r="11" fill="#5A57C9"/><text x="411" y="160" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="806" y1="70" x2="806" y2="82" stroke="#5A57C9" stroke-width="1.4"/>
+        <line x1="806" y1="82" x2="812" y2="70" stroke="none"/>
+        <line x1="806" y1="84" x2="820" y2="73" stroke="#5A57C9" stroke-width="0"/>
+        <line x1="836" y1="66" x2="826" y2="54" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x18)"/>
+        <circle cx="842" cy="76" r="11" fill="#5A57C9"/><text x="842" y="80" text-anchor="middle" fill="#fff">4</text>
+
+        <line x1="694" y1="16" x2="682" y2="28" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x18)"/>
+        <circle cx="701" cy="8" r="11" fill="#5A57C9"/><text x="701" y="12" text-anchor="middle" fill="#fff">5</text>
+
+        <line x1="836" y1="120" x2="812" y2="110" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x18)"/>
+        <circle cx="848" cy="124" r="11" fill="#5A57C9"/><text x="848" y="128" text-anchor="middle" fill="#fff">6</text>
+      </g>
+    </svg>
+    <figcaption>The project builder: the archive on the left, the project on the right (rows illustrative; names invented).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">All reports (left)</td><td>Search the <b>whole archive</b> from inside the builder &mdash; Keyword or Advanced, with the same filters as Home. Each row carries small category tags and the report date.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Adding reports</td><td>A pill shows how many reports the search matched (e.g. &ldquo;809 matches&rdquo;). Add one with its <b>+ Add</b> button, tick several and use the <b>Add to project</b> bar, or <b>+ Add all</b> for everything found. Reports the nightly update has added that match the project&rsquo;s saved search are tagged <b>Recently added</b>, and <b>Mark as viewed</b> helps you track which you have checked. Reports already in the project show <b>&ldquo;&#10003; In project&rdquo;</b>; changes save automatically, and <b>Undo</b> reverses the last change.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">+ Upload PDFs</td><td>Bring <b>your own documents</b> into the project &mdash; stored privately within it, visible only to the project&rsquo;s members, and <b>processed in the background like every other report</b>. Drag &amp; drop or choose files, <b>up to 20 per batch</b> and as many batches as you like. Because that processing carries a cost, <b>uploads are switched on per account</b>: where they are not yet enabled the button is greyed and a note explains how to request access &mdash; contact the team to turn it on.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">In this project (right)</td><td>What the project contains, with its own search box and filters &mdash; <b>search within the project</b> without touching the archive-wide search on the left.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Share project</td><td>Invite colleagues by email; the count shows how many people have access, and the project appears in their &ldquo;Shared with you&rdquo; list. <b>Invitations work for registered users only</b> &mdash; ask the colleague to create an account first, then invite the address they registered with.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Extracted metadata (.xlsx)</td><td>Downloads the project&rsquo;s extracted data as a shareable <b>data-deliverable workbook</b>. A <b>Start here</b> sheet explains how to read it. The <b>Dataset</b> sheet (blue tab) is the data &mdash; one row per report, leading with context (deceased name, coroner, area, NHS region) then every extracted field, showing <i>not stated</i> where the report doesn&rsquo;t state a fact, never a guess. Behind it, the <b>grey evidence-review tabs</b> mirror the Dataset <b>one sheet per column</b>: each pairs the value with <b>where it came from</b> &mdash; the evidence sentence for a model reading, or a short note for a value taken from the page header or derived (NHS category and Healthcare speciality each get their own sheet). Every cell traces back to the report&rsquo;s own words. For a large project a <b>&ldquo;Large export&rdquo;</b> progress note shows the report count while the workbook is prepared. A project&rsquo;s second export &mdash; <b>Factors &amp; annotations (.csv)</b>, the reviewed contributory factors with their evidence &mdash; is available from the Factor annotation page.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.8pt;line-height:1.5">
+    <b style="color:var(--navy)">A worked example.</b>
+    Create a project, add the matches for an Advanced search &mdash; say &ldquo;learning disability&rdquo;. From then on, reports the nightly update adds that match are flagged <b>automatically</b> &mdash; a purple <b>&ldquo;new reports&rdquo; badge</b> and a <b>&ldquo;Recently added&rdquo;</b> tag &mdash; so you just review and add them. <b>Duplicate project</b> makes a safe copy to experiment on, and <b>Project activity</b> keeps a dated history of who changed what &mdash; the searches and filters each member applied, and the reports they added or removed &mdash; with any past search re-openable through <b>Open</b>. Share the project with a colleague, scope the dashboard to it for the charts, and click <b>Extracted metadata (.xlsx)</b> when you need the data in a spreadsheet.
+  </div>
+
+  <figure style="margin-top:8px">
+    <svg viewBox="0 0 1000 196" width="100%" role="img" aria-label="Annotated diagram of the Project activity log">
+      <rect x="20" y="6" width="960" height="184" rx="8" fill="#fff" stroke="#C9D0DC"/>
+      <text x="44" y="32" font-size="12.5" fill="#0B0C0C" font-weight="700">Project activity</text>
+      <line x1="20" y1="44" x2="980" y2="44" stroke="#EFF1F5"/>
+      <g font-size="6.8" fill="#5E6676" letter-spacing=".3" font-weight="700">
+        <text x="44" y="62">DATE</text>
+        <text x="104" y="62">TIME</text>
+        <text x="164" y="62">CHANGED BY</text>
+        <text x="290" y="62">FILTERS / SEARCHES APPLIED</text>
+        <text x="448" y="62">REPORTS ADDED</text>
+        <text x="602" y="62">REPORTS REMOVED</text>
+        <text x="852" y="62">FILTER SELECTION</text>
+      </g>
+      <line x1="20" y1="70" x2="980" y2="70" stroke="#E3E7EE"/>
+      <g font-size="8.2" fill="#3A4050">
+        <text x="44" y="92">20/07/2026</text>
+        <text x="104" y="92">19:28:24</text>
+        <text x="164" y="92" fill="#1F3864">you</text>
+        <text x="290" y="92">search: &ldquo;home birth&rdquo;</text>
+        <text x="448" y="92" font-weight="700" fill="#0B0C0C">2 reports</text>
+        <text x="448" y="106" font-size="7.4">Alex Example and Sam</text>
+        <text x="448" y="118" font-size="7.4">Sample; Pat Case&hellip;</text>
+        <text x="602" y="92" fill="#8A93A8">&mdash;</text>
+        <text x="852" y="92" fill="#1F3864" text-decoration="underline">Open &#8599;</text>
+      </g>
+      <line x1="20" y1="132" x2="980" y2="132" stroke="#EFF1F5"/>
+      <g font-size="8.2" fill="#3A4050">
+        <text x="44" y="154">20/07/2026</text>
+        <text x="104" y="154">19:28:46</text>
+        <text x="164" y="154" fill="#1F3864">sam@example.ac.uk</text>
+        <text x="290" y="154" fill="#8A93A8">&mdash;</text>
+        <text x="290" y="168" fill="#1F3864" text-decoration="underline">UNDO</text>
+        <text x="448" y="154" fill="#8A93A8">&mdash;</text>
+        <text x="602" y="154" font-weight="700" fill="#0B0C0C">2 reports</text>
+        <text x="602" y="168" font-size="7.4">Alex Example and Sam</text>
+        <text x="602" y="180" font-size="7.4">Sample; Pat Case&hellip;</text>
+        <text x="852" y="154" fill="#8A93A8">&mdash;</text>
+      </g>
+    </svg>
+    <figcaption>The <b>Project activity</b> log &mdash; a dated history of every change to the project: <b>who changed it</b> (Changed by), the searches and filters they applied, and the reports they added or removed (with <b>Undo</b>). Any past search re-opens and runs again with <b>Open</b> (rows illustrative; names invented).</figcaption>
+  </figure>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">9 of 13</div>
+</div>
+
+<div class="page" id="sec-5">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="lx19"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#lx19)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Factor annotation</b><span>July 2026</span></div>
+  </div>
+  <div class="rule"></div>
+  <div class="gnav"><a href="#sec-1">1 &middot; Getting started</a><a href="#sec-2">2 &middot; Home</a><a href="#sec-3">3 &middot; Analysis &amp; dashboard</a><a href="#sec-4">4 &middot; Projects</a><span class="on">5 &middot; Factor annotation</span><a href="#sec-6">6 &middot; Factor analysis</a><a href="#sec-7">7 &middot; Theme annotation</a><a href="#sec-8">8 &middot; Theme analysis</a></div>
+  <div class="gloc">This sheet &mdash; part 5 of 8 of the Lense.ai user guide &mdash; covers: Menu &#9656; HUMAN FACTOR ANALYSIS &#9656; <b>Factor annotation</b></div>
+
+
+  <h1>Factor annotation: confirming the contributory factors</h1>
+  <p class="lede">Every report is annotated <b>automatically</b> the night it is scraped: the tool identifies which <b>Yorkshire Contributory Factors</b> are present, each tied to the sentences that support it. This page is where a person can <b>review and edit</b> them if they wish &mdash; <b>accept, reject or relabel</b> each factor. The archive and analyses use these annotations, with any human corrections applied.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 434" width="100%" role="img" aria-label="Annotated diagram of the annotation review page">
+      <!-- top bar -->
+      <text x="40" y="4" font-size="8" fill="#5E6676" letter-spacing="1" font-weight="700">PROJECT</text>
+      <rect x="40" y="10" width="230" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="52" y="27" font-size="10" fill="#3A4050">learning disability &#9662;</text>
+      <text x="620" y="4" font-size="8" fill="#5E6676" letter-spacing="1" font-weight="700">EXPORT PROJECT</text>
+      <rect x="620" y="10" width="164" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="702" y="27" text-anchor="middle" font-size="9" fill="#3A4050">Factors &amp; annotations (.csv)</text>
+      <rect x="792" y="10" width="164" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="874" y="27" text-anchor="middle" font-size="9" fill="#3A4050">Extracted metadata (.xlsx)</text>
+      <text x="330" y="27" font-size="8.5" fill="#5E6676">doc 1/284 &middot; 6 factors</text>
+      <rect x="446" y="12" width="112" height="20" rx="10" fill="#F4F6F9" stroke="#D9DEE6"/>
+      <text x="502" y="26" text-anchor="middle" font-size="8.5" fill="#5E6676">1411 left to review</text>
+
+      <!-- left: report with highlighted concerns -->
+      <rect x="40" y="52" width="500" height="366" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="74" font-size="11" fill="#0B0C0C" font-weight="700">Julie Sample</text>
+      <text x="56" y="89" font-size="7.6" fill="#5E6676">CORONER <tspan fill="#3A4050">A. Example</tspan> &nbsp; AREA <tspan fill="#3A4050">Manchester South</tspan> &nbsp; DATE OF REPORT <tspan fill="#3A4050">30/09/2019</tspan></text>
+      <rect x="56" y="98" width="82" height="22" rx="3" fill="#EDEDF7" stroke="#C9D0DC"/>
+      <text x="97" y="113" text-anchor="middle" font-size="9" fill="#1F3864" font-weight="600">Sentences</text>
+      <rect x="138" y="98" width="90" height="22" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="183" y="113" text-anchor="middle" font-size="9" fill="#3A4050">Original PDF</text>
+      <line x1="56" y1="130" x2="524" y2="130" stroke="#EFF1F5"/>
+      <text x="56" y="148" font-size="8.5" font-weight="700" fill="#0B0C0C">CORONER&#8217;S CONCERNS</text>
+      <text x="56" y="166" font-size="8.5" fill="#3A4050">The MATTERS OF CONCERN are as follows.</text>
+      <!-- O3 evidence (green) -->
+      <rect x="52" y="174" width="472" height="34" rx="3" fill="#F1F0FA"/>
+      <text x="60" y="188" font-size="8.5" fill="#3A4050">1. The inquest heard that despite two in-patient stays, there was no</text>
+      <text x="60" y="202" font-size="8.5" fill="#3A4050">best-interests meeting held to discuss her care; <tspan fill="#7BAE7F">&#9632;</tspan></text>
+      <!-- active O3 highlight? active = the O3 factor open on right; emphasise this sentence -->
+      <text x="56" y="226" font-size="8.5" fill="#3A4050">2. On each of her admissions her parents took her needs passport in.</text>
+      <!-- O5 evidence (teal, emphasised as active) -->
+      <rect x="52" y="234" width="472" height="48" rx="3" fill="#D9F2EE"/>
+      <text x="60" y="248" font-size="8.5" fill="#1F3864">On her first admission there was no reasonable care plan put in place</text>
+      <text x="60" y="262" font-size="8.5" fill="#1F3864">despite the fact that she had clear and significant disabilities that would</text>
+      <text x="60" y="276" font-size="8.5" fill="#1F3864">have benefited from an effective plan; <tspan fill="#3BA08F">&#9632;</tspan></text>
+      <text x="56" y="302" font-size="8.5" fill="#3A4050">3. Julie Ann Sample was cared for devotedly in hospital by her parents.</text>
+      <!-- C2 evidence (purple) -->
+      <rect x="52" y="310" width="472" height="34" rx="3" fill="#F1F0FA"/>
+      <text x="60" y="324" font-size="8.5" fill="#3A4050">Their evidence was that Julie was never effectively communicated with</text>
+      <text x="60" y="338" font-size="8.5" fill="#3A4050">by clinicians treating her and her needs not understood. <tspan fill="#9A8FD8">&#9632;</tspan></text>
+      <text x="56" y="364" font-size="8.5" fill="#3A4050">So far as her needs were concerned she was &#8220;invisible&#8221; to staff.</text>
+      <text x="56" y="392" font-size="8.5" fill="#3A4050">An approach that recognised how traumatic a hospital stay was for her</text>
+      <text x="56" y="406" font-size="8.5" fill="#3A4050">would have significantly reduced the trauma. <tspan fill="#E09A8A">&#9632;</tspan></text>
+
+      <!-- right: factors -->
+      <rect x="560" y="52" width="400" height="366" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <g font-size="9">
+        <rect x="576" y="62" width="60" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="606" y="76" text-anchor="middle" fill="#3A4050">&#8592; Prev</text>
+        <rect x="640" y="62" width="200" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="650" y="76" fill="#3A4050">1. Julie Sample &#9662;</text>
+        <rect x="844" y="62" width="60" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="874" y="76" text-anchor="middle" fill="#3A4050">Next &#8594;</text>
+      </g>
+      <text x="576" y="104" font-size="8.5" fill="#0B0C0C" font-weight="700" letter-spacing=".5">FACTORS ON THIS DOCUMENT</text>
+      <rect x="800" y="92" width="144" height="20" rx="3" fill="#fff" stroke="#D9DEE6"/>
+      <text x="872" y="106" text-anchor="middle" font-size="8.5" fill="#3A4050">&#8646; Compare approaches</text>
+      <text x="576" y="122" font-size="7.5" fill="#5E6676">ANNOTATORS &nbsp;<tspan fill="#8A93A8">who tagged the factors (person or tool)</tspan></text>
+      <rect x="576" y="128" width="120" height="18" rx="9" fill="#fff" stroke="#D9DEE6"/>
+      <circle cx="588" cy="137" r="4" fill="none" stroke="#5E6676" stroke-width="1.2"/>
+      <text x="598" y="141" font-size="8" fill="#3A4050">Human reviewer</text>
+      <text x="682" y="141" font-size="8" fill="#8A93A8">1</text>
+      <rect x="704" y="128" width="150" height="18" rx="9" fill="#EEF0F6" stroke="#C9C7EE"/>
+      <rect x="714" y="133" width="8" height="8" fill="#1F2E5C"/>
+      <text x="726" y="141" font-size="8" fill="#3A4050">Lense.AI annotator</text>
+      <text x="840" y="141" font-size="8" fill="#8A93A8">5</text>
+      <text x="576" y="162" font-size="8.5" fill="#5E6676" font-family="monospace">1 of 6 factors reviewed</text>
+
+      <text x="576" y="184" font-size="8.5" fill="#0B0C0C" font-weight="700" letter-spacing=".5">YORKSHIRE CONTRIBUTORY FACTORS</text>
+      <!-- collapsed confirmed O3 -->
+      <g font-size="9" fill="#0B0C0C">
+        <rect x="576" y="192" width="4" height="18" fill="#7BAE7F"/><text x="590" y="205">&#9656; O3 &mdash; Care Planning</text>
+        <text x="930" y="205" font-size="8.5" fill="#2F6B45" font-family="monospace">&#10003;</text>
+      </g>
+      <!-- expanded O5, active -->
+      <rect x="576" y="216" width="368" height="122" rx="3" fill="#FAFBFC" stroke="#E3E7EE"/>
+      <rect x="576" y="216" width="4" height="122" fill="#3BA08F"/>
+      <text x="590" y="234" font-size="9.5" fill="#0B0C0C" font-weight="700">&#9662; &#9632; O5 &mdash; Local Policies and Procedures</text>
+      <circle cx="924" cy="230" r="9" fill="none" stroke="#B9C0CC"/><text x="924" y="234" text-anchor="middle" font-size="8" fill="#5E6676">1</text>
+      <text x="590" y="250" font-size="7.8" fill="#5E6676">&#9632; Lense.AI annotator</text>
+      <text x="590" y="268" font-size="8.5" fill="#3A4050"><tspan fill="#5A57C9">&#182; 42</tspan> On her first admission there was no reasonable care plan put in</text>
+      <text x="590" y="281" font-size="8.5" fill="#3A4050">place despite the fact that she had clear and significant disabilities</text>
+      <text x="590" y="294" font-size="8.5" fill="#3A4050">that would have benefited from an effective plan.</text>
+      <g font-size="8.5">
+        <rect x="590" y="304" width="70" height="20" rx="3" fill="#fff" stroke="#C9D0DC"/><text x="625" y="318" text-anchor="middle" fill="#2F6B45" font-weight="600">&#10003; Accept</text>
+        <rect x="666" y="304" width="62" height="20" rx="3" fill="#fff" stroke="#C9D0DC"/><text x="697" y="318" text-anchor="middle" fill="#8F3232" font-weight="600">&#10005; Reject</text>
+        <rect x="734" y="304" width="68" height="20" rx="3" fill="#fff" stroke="#C9D0DC"/><text x="768" y="318" text-anchor="middle" fill="#3A4050">&#8635; Relabel</text>
+      </g>
+      <!-- collapsed others -->
+      <g font-size="9" fill="#0B0C0C">
+        <rect x="576" y="348" width="4" height="18" fill="#9A8FD8"/><text x="590" y="361">&#9656; C2 &mdash; Verbal and Written Communication</text>
+        <rect x="576" y="372" width="4" height="18" fill="#E09A8A"/><text x="590" y="385">&#9656; O4 &mdash; Staff Training and Education</text>
+        <rect x="576" y="396" width="4" height="18" fill="#7BAE7F"/><text x="590" y="409">&#9656; L1 &mdash; Workload and Staffing &nbsp;&nbsp;<tspan fill="#8A93A8" font-size="8">&hellip; O2</tspan></text>
+      </g>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ahx20" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="306" y1="23" x2="280" y2="23" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="318" cy="23" r="11" fill="#5A57C9"/><text x="318" y="27" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="586" y1="23" x2="614" y2="23" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="574" cy="23" r="11" fill="#5A57C9"/><text x="574" y="27" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="270" y1="109" x2="240" y2="109" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="282" cy="109" r="11" fill="#5A57C9"/><text x="282" y="113" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="884" y1="137" x2="862" y2="137" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="896" cy="137" r="11" fill="#5A57C9"/><text x="896" y="141" text-anchor="middle" fill="#fff">4</text>
+
+        <line x1="548" y1="274" x2="582" y2="274" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="537" cy="274" r="11" fill="#5A57C9"/><text x="537" y="278" text-anchor="middle" fill="#fff">5</text>
+
+        <line x1="836" y1="290" x2="812" y2="306" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="844" cy="283" r="11" fill="#5A57C9"/><text x="844" y="287" text-anchor="middle" fill="#fff">6</text>
+
+        <line x1="965" y1="108" x2="950" y2="104" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="972" cy="112" r="11" fill="#5A57C9"/><text x="972" y="116" text-anchor="middle" fill="#fff">7</text>
+
+        <line x1="38" y1="258" x2="50" y2="258" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="27" cy="258" r="11" fill="#5A57C9"/><text x="27" y="262" text-anchor="middle" fill="#fff">8</text>
+
+        <line x1="948" y1="182" x2="936" y2="198" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx20)"/>
+        <circle cx="953" cy="173" r="11" fill="#5A57C9"/><text x="953" y="177" text-anchor="middle" fill="#fff">9</text>
+      </g>
+    </svg>
+    <figcaption>The annotation review page, with the evidence highlighted in the report&rsquo;s Coroner&rsquo;s Concerns (content illustrative; names invented).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Project &amp; progress</td><td>Choose the project to review. The header keeps you oriented: which document you are on (doc 1/284), how many factors it carries (6 factors), and how much reviewing remains across the project (&ldquo;1411 left to review&rdquo;).</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Export project</td><td>Two exports are available from this page. <b>Factors &amp; annotations (.csv)</b>: one row per factor per document &mdash; the tool&rsquo;s suggested code and factor, the <b>human-reviewed</b> code, factor and decision, a confidence band and score, and the supporting sentence numbers <i>with the sentences themselves</i>. <b>Extracted metadata (.xlsx)</b>: the project&rsquo;s data-deliverable workbook &mdash; a Dataset sheet plus an evidence sheet for every column (described in the Projects guide).</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Sentences / Original PDF</td><td>The report as numbered sentences (what the factor evidence points into), or the original document as published &mdash; switch freely while reviewing.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Annotators &amp; reviewed count</td><td>Shows who tagged the factors on this report &mdash; the <b>Human reviewer</b> or the <b>Lense.AI annotator</b> (the tool), each with its own count &mdash; and how many of the document&rsquo;s factors you have reviewed so far (&ldquo;1 of 6&rdquo;). A <b>Click here for guidance on how to annotate</b> link opens the annotation guidance.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">The factors, with evidence</td><td>Each identified <b>Yorkshire Contributory Factor</b> (colour-coded by framework tier) expands to show the exact sentence(s) supporting it, with the sentence number (&#182;&nbsp;42).</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Accept / Reject / Relabel</td><td>Your decision on each factor: <b>Accept</b> it (one supporting sentence is enough), <b>Reject</b> it only when nothing in the report supports it, or <b>Relabel</b> the whole factor when its label is wrong for all of its sentences. The published report is never altered &mdash; annotation is a separate layer, and the archive and analyses use the current labels, with any human corrections applied.</td></tr>
+    <tr><td class="n"><i>7</i></td><td class="f">Compare approaches</td><td>View the <b>Human reviewer</b>&rsquo;s annotations and the <b>Lense.AI annotator</b>&rsquo;s side by side on the same report &mdash; so you can see exactly where the human review agreed with, added to, or corrected the tool&rsquo;s suggestions.</td></tr>
+    <tr><td class="n"><i>8</i></td><td class="f">Highlighted evidence in the text</td><td>Every sentence that supports a factor is tinted in the report itself, ending in a small square in the factor&rsquo;s colour; the sentence belonging to the factor you are reviewing is emphasised. You read the evidence exactly where it sits in the report.</td></tr>
+    <tr><td class="n"><i>9</i></td><td class="f">Decided factors</td><td>A reviewed factor carries its decision mark (&#10003;), and the reviewed count updates &mdash; a reviewed document reads at a glance.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.5pt;line-height:1.5">
+    <b style="color:var(--navy)">Important &mdash; how to review each factor.</b>
+    Read the supporting sentences <b>collectively</b>; the task is not to agree or disagree with each sentence in isolation, and if a sentence seems mislabelled, read it in the context of the report first. <b>1. Accept</b> if <b>at least one</b> sentence supports the factor &mdash; one sentence is enough, because the analysis records only whether a factor is <b>present or absent</b> in a report, not how many sentences support it. <b>2. Add anything missing</b>: if a sentence in the report supports a factor that was not suggested, click that sentence and select its factor. <b>3. Relabel with care</b> &mdash; relabelling changes the <b>whole factor</b>, not one sentence, so relabel only when the label is wrong for <i>all</i> its sentences; for a single misplaced sentence, use step&nbsp;2 instead. <b>4. Reject only when nothing supports it</b> &mdash; not because some suggested sentences are wrong, or because you mean to add a better one. Work through documents with <b>Prev / Next</b>; progress saves as you go.
+  </div>
+
+  <div style="margin-top:8px;padding:8px 13px;background:#FFF4E5;border-left:3px solid #E08A2B;font-size:8.5pt;line-height:1.5">
+    <b style="color:#B5670E">Coming up.</b>
+    The ability for a reviewer to <b>remove individual sentences from a contributory factor</b> &mdash; functionality planned for <b>September&nbsp;2026</b>.
+  </div>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">10 of 13</div>
+</div>
+
+<div class="page" id="sec-6">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="lx21"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#lx21)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Factor analysis</b><span>July 2026</span></div>
+  </div>
+  <div class="rule"></div>
+  <div class="gnav"><a href="#sec-1">1 &middot; Getting started</a><a href="#sec-2">2 &middot; Home</a><a href="#sec-3">3 &middot; Analysis &amp; dashboard</a><a href="#sec-4">4 &middot; Projects</a><a href="#sec-5">5 &middot; Factor annotation</a><span class="on">6 &middot; Factor analysis</span><a href="#sec-7">7 &middot; Theme annotation</a><a href="#sec-8">8 &middot; Theme analysis</a></div>
+  <div class="gloc">This sheet &mdash; part 6 of 8 of the Lense.ai user guide &mdash; covers: Menu &#9656; HUMAN FACTOR ANALYSIS &#9656; <b>Factor analysis</b></div>
+
+
+  <h1>Factor analysis: the contributory factors in charts</h1>
+  <p class="lede">This page aggregates the <b>Yorkshire Contributory Factors</b> across the selected reports: which factors occur most, how each has moved over time, and how they distribute across the report categories and coroner areas. A <b>Category system</b> toggle (Judiciary or NHS) sits at the top of the page &mdash; switch it and every category-based chart re-groups to match. Every chart downloads as an image or CSV.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 486" width="100%" role="img" aria-label="Annotated diagram of the factor analysis page">
+      <!-- A: factors over the years heatmap -->
+      <rect x="40" y="0" width="560" height="150" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="20" font-size="9.5" fill="#0B0C0C" font-weight="700">Factors over the years</text>
+      <text x="56" y="33" font-size="7.4" fill="#8A93A8">&#9745; percentages &nbsp;&#9745; counts (n) &nbsp;&middot;&nbsp; Year: All years &#9662; &nbsp;&middot;&nbsp; Factor category: All &#9662;</text>
+      <g font-size="7" fill="#5E6676">
+        <text x="250" y="50">2023</text><text x="330" y="50">2024</text><text x="410" y="50">2025</text><text x="490" y="50">2026</text><text x="548" y="50" font-weight="700" fill="#3A4050">Total</text>
+      </g>
+      <g font-size="7.6">
+        <text x="56" y="68" fill="#3A4050">C2 &mdash; Verbal &amp; Written Comm.</text>
+        <rect x="240" y="56" width="72" height="18" fill="#9C95DB"/><text x="276" y="69" text-anchor="middle" fill="#fff">54% n=25</text>
+        <rect x="320" y="56" width="72" height="18" fill="#9C95DB"/><text x="356" y="69" text-anchor="middle" fill="#fff">58% n=37</text>
+        <rect x="400" y="56" width="72" height="18" fill="#9C95DB"/><text x="436" y="69" text-anchor="middle" fill="#fff">60% n=31</text>
+        <rect x="480" y="56" width="72" height="18" fill="#B7B2E4"/><text x="516" y="69" text-anchor="middle" fill="#1F2E5C">47% n=14</text>
+        <text x="562" y="69" fill="#3A4050" font-weight="700">146</text>
+        <text x="56" y="94" fill="#3A4050">O3 &mdash; Care Planning</text>
+        <rect x="240" y="82" width="72" height="18" fill="#9C95DB"/><text x="276" y="95" text-anchor="middle" fill="#fff">57% n=26</text>
+        <rect x="320" y="82" width="72" height="18" fill="#8A82D4"/><text x="356" y="95" text-anchor="middle" fill="#fff">63% n=40</text>
+        <rect x="400" y="82" width="72" height="18" fill="#8A82D4"/><text x="436" y="95" text-anchor="middle" fill="#fff">65% n=34</text>
+        <rect x="480" y="82" width="72" height="18" fill="#B7B2E4"/><text x="516" y="95" text-anchor="middle" fill="#1F2E5C">53% n=16</text>
+        <text x="562" y="95" fill="#3A4050" font-weight="700">175</text>
+        <text x="56" y="120" fill="#3A4050">H1 &mdash; Slips or Lapses</text>
+        <rect x="240" y="108" width="72" height="18" fill="#B7B2E4"/><text x="276" y="121" text-anchor="middle" fill="#1F2E5C">44% n=20</text>
+        <rect x="320" y="108" width="72" height="18" fill="#9C95DB"/><text x="356" y="121" text-anchor="middle" fill="#fff">52% n=33</text>
+        <rect x="400" y="108" width="72" height="18" fill="#CFCBEC"/><text x="436" y="121" text-anchor="middle" fill="#1F2E5C">37% n=19</text>
+        <rect x="480" y="108" width="72" height="18" fill="#CFCBEC"/><text x="516" y="121" text-anchor="middle" fill="#1F2E5C">33% n=10</text>
+        <text x="562" y="121" fill="#3A4050" font-weight="700">113</text>
+      </g>
+      <text x="56" y="141" font-size="7" fill="#8A93A8">2013&ndash;2026; each cell is the share (and count) of that year&#8217;s reports carrying the factor.</text>
+
+      <!-- B: ranked factors -->
+      <rect x="620" y="0" width="340" height="150" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="636" y="20" font-size="9.5" fill="#0B0C0C" font-weight="700">Factors ranked</text>
+      <g font-size="6.6" fill="#5E6676">
+        <text x="720" y="20">&#9632; C &nbsp;&#9632; E &nbsp;&#9632; H &nbsp;&#9632; L &nbsp;&#9632; O &nbsp;&#9632; S &nbsp;(framework tier)</text>
+      </g>
+      <g font-size="7.4" fill="#3A4050" text-anchor="end">
+        <text x="742" y="42">O3 &mdash; Care Planning</text>
+        <text x="742" y="64">O5 &mdash; Local Policies</text>
+        <text x="742" y="86">C2 &mdash; Verbal &amp; Written</text>
+        <text x="742" y="108">O4 &mdash; Staff Training</text>
+        <text x="742" y="130">H1 &mdash; Slips or Lapses</text>
+      </g>
+      <rect x="750" y="33" width="170" height="12" fill="#6E87B5"/>
+      <rect x="750" y="55" width="156" height="12" fill="#6E87B5"/>
+      <rect x="750" y="77" width="142" height="12" fill="#26325E"/>
+      <rect x="750" y="99" width="139" height="12" fill="#6E87B5"/>
+      <rect x="750" y="121" width="110" height="12" fill="#E3DCC2"/>
+      <g font-size="7.2" fill="#3A4050">
+        <text x="924" y="43">61.6%</text><text x="910" y="65">56.7%</text><text x="896" y="87">51.4%</text>
+        <text x="893" y="109">50.4%</text><text x="864" y="131">39.8%</text>
+      </g>
+
+      <!-- C: trend in a factor -->
+      <rect x="40" y="166" width="450" height="140" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="186" font-size="9.5" fill="#0B0C0C" font-weight="700">Trend in a factor over time</text>
+      <rect x="56" y="194" width="150" height="18" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="64" y="207" font-size="8" fill="#3A4050">O3 &mdash; Care Planning &#9662;</text>
+      <g font-size="8">
+        <rect x="216" y="194" width="44" height="18" rx="3" fill="#EDEDF7" stroke="#C9C7EE"/><text x="238" y="207" text-anchor="middle" fill="#5A57C9" font-weight="600">Month</text>
+        <rect x="262" y="194" width="36" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="280" y="207" text-anchor="middle" fill="#3A4050">Year</text>
+        <text x="312" y="207" fill="#3A4050">&#9745; Show trend by line</text>
+      </g>
+      <g fill="#5A57C9">
+        <rect x="60" y="272" width="10" height="20"/><rect x="76" y="276" width="10" height="16"/><rect x="92" y="268" width="10" height="24"/>
+        <rect x="108" y="276" width="10" height="16"/><rect x="124" y="252" width="10" height="40"/><rect x="140" y="272" width="10" height="20"/>
+        <rect x="156" y="260" width="10" height="32"/><rect x="172" y="248" width="10" height="44"/><rect x="188" y="264" width="10" height="28"/>
+        <rect x="204" y="240" width="10" height="52"/><rect x="220" y="232" width="10" height="60"/><rect x="236" y="256" width="10" height="36"/>
+        <rect x="252" y="244" width="10" height="48"/><rect x="268" y="248" width="10" height="44"/><rect x="284" y="236" width="10" height="56"/>
+        <rect x="300" y="256" width="10" height="36"/><rect x="316" y="228" width="10" height="64"/><rect x="332" y="252" width="10" height="40"/>
+        <rect x="348" y="244" width="10" height="48"/><rect x="364" y="240" width="10" height="52"/><rect x="380" y="252" width="10" height="40"/>
+        <rect x="396" y="236" width="10" height="56"/><rect x="412" y="260" width="10" height="32"/><rect x="428" y="264" width="10" height="28"/>
+        <rect x="444" y="256" width="10" height="36"/><rect x="460" y="264" width="10" height="28"/>
+      </g>
+      <polyline points="65,282 81,284 97,280 113,284 129,262 145,282 161,266 177,258 193,278 209,246 225,238 241,264 257,250 273,254 289,242 305,264 321,234 337,262 353,250 369,246 385,262 401,242 417,266 433,270 449,262 465,270"
+        fill="none" stroke="#5E6676" stroke-width="1"/>
+      <line x1="56" y1="292" x2="476" y2="292" stroke="#E3E7EE"/>
+      <g font-size="6.8" fill="#8A93A8">
+        <text x="60" y="302">Aug 2013</text><text x="200" y="302">Feb 2023</text><text x="330" y="302">Sep 2024</text><text x="440" y="302">May 2026</text>
+      </g>
+
+      <!-- D: factors by report category -->
+      <rect x="510" y="166" width="450" height="140" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="526" y="186" font-size="9.5" fill="#0B0C0C" font-weight="700">Factors by report category</text>
+      <text x="526" y="199" font-size="7" fill="#8A93A8">Category system:</text>
+      <rect x="588" y="191" width="46" height="11" rx="5.5" fill="#5A57C9"/><text x="611" y="199.4" text-anchor="middle" font-size="6.6" fill="#fff">Judiciary</text>
+      <rect x="638" y="191" width="30" height="11" rx="5.5" fill="#EEF0F6" stroke="#D9DEE6"/><text x="653" y="199.4" text-anchor="middle" font-size="6.6" fill="#5E6676">NHS</text>
+      <text x="674" y="199" font-size="6.8" fill="#8A93A8">&mdash; the categories below re-group to match</text>
+      <g font-size="7.2" fill="#3A4050" text-anchor="end">
+        <text x="646" y="222">Hospital Death Clinical&hellip;</text>
+        <text x="646" y="246">Suicide from 2015</text>
+        <text x="646" y="270">Mental Health related</text>
+        <text x="646" y="294">Child Death from 2015</text>
+      </g>
+      <g>
+        <rect x="654" y="212" width="60" height="13" fill="#26325E"/><rect x="714" y="212" width="88" height="13" fill="#3B4C8F"/><rect x="802" y="212" width="86" height="13" fill="#6E87B5"/><rect x="888" y="212" width="34" height="13" fill="#A9C1E8"/><rect x="922" y="212" width="22" height="13" fill="#E3DCC2"/>
+        <rect x="654" y="236" width="68" height="13" fill="#26325E"/><rect x="722" y="236" width="80" height="13" fill="#3B4C8F"/><rect x="802" y="236" width="94" height="13" fill="#6E87B5"/><rect x="896" y="236" width="28" height="13" fill="#A9C1E8"/><rect x="924" y="236" width="20" height="13" fill="#E3DCC2"/>
+        <rect x="654" y="260" width="64" height="13" fill="#26325E"/><rect x="718" y="260" width="72" height="13" fill="#3B4C8F"/><rect x="790" y="260" width="100" height="13" fill="#6E87B5"/><rect x="890" y="260" width="30" height="13" fill="#A9C1E8"/><rect x="920" y="260" width="24" height="13" fill="#E3DCC2"/>
+        <rect x="654" y="284" width="52" height="13" fill="#26325E"/><rect x="706" y="284" width="84" height="13" fill="#3B4C8F"/><rect x="790" y="284" width="92" height="13" fill="#6E87B5"/><rect x="882" y="284" width="38" height="13" fill="#A9C1E8"/><rect x="920" y="284" width="24" height="13" fill="#E3DCC2"/>
+      </g>
+      <text x="654" y="303" font-size="6.6" fill="#5E6676">&#9632; C: Communication &nbsp;&#9632; L: Local &nbsp;&#9632; O: Organisational &nbsp;&#9632; E: External &nbsp;&#9632; H: Human</text>
+
+      <!-- E: factors by coroner area -->
+      <rect x="40" y="322" width="920" height="102" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="342" font-size="9.5" fill="#0B0C0C" font-weight="700">Factors by coroner area</text>
+      <text x="230" y="342" font-size="7.4" fill="#8A93A8">&#9745; percentages &#9745; counts &middot; Coroner area: All areas &#9662;</text>
+      <g font-size="7" fill="#5E6676">
+        <text x="330" y="360">C1</text><text x="410" y="360">C2</text><text x="490" y="360">H1</text><text x="570" y="360">O3</text><text x="650" y="360">O5</text><text x="730" y="360">S4</text><text x="800" y="360" font-weight="700" fill="#3A4050">Reports</text>
+      </g>
+      <g font-size="7.4">
+        <text x="56" y="380" fill="#3A4050">East London</text>
+        <rect x="316" y="368" width="60" height="16" fill="#B7B2E4"/><text x="346" y="380" text-anchor="middle" fill="#1F2E5C">7.8% n=4</text>
+        <rect x="396" y="368" width="60" height="16" fill="#B7B2E4"/><text x="426" y="380" text-anchor="middle" fill="#1F2E5C">4.1% n=6</text>
+        <rect x="476" y="368" width="60" height="16" fill="#9C95DB"/><text x="506" y="380" text-anchor="middle" fill="#fff">6.2% n=7</text>
+        <rect x="556" y="368" width="60" height="16" fill="#CFCBEC"/><text x="586" y="380" text-anchor="middle" fill="#1F2E5C">2.9% n=5</text>
+        <rect x="636" y="368" width="60" height="16" fill="#CFCBEC"/><text x="666" y="380" text-anchor="middle" fill="#1F2E5C">2.5% n=4</text>
+        <rect x="716" y="368" width="60" height="16" fill="#CFCBEC"/><text x="746" y="380" text-anchor="middle" fill="#1F2E5C">5.7% n=5</text>
+        <text x="806" y="380" fill="#3A4050" font-weight="700">&mdash;</text>
+        <text x="56" y="404" fill="#3A4050">Blackpool and Fylde</text>
+        <rect x="316" y="392" width="60" height="16" fill="#9C95DB"/><text x="346" y="404" text-anchor="middle" fill="#fff">7.8% n=4</text>
+        <rect x="396" y="392" width="60" height="16" fill="#EDEBF8"/><text x="426" y="404" text-anchor="middle" fill="#1F2E5C">1.4% n=2</text>
+        <rect x="476" y="392" width="60" height="16" fill="#F5F4FB"/><text x="506" y="404" text-anchor="middle" fill="#1F2E5C">0.9% n=1</text>
+        <rect x="556" y="392" width="60" height="16" fill="#EDEBF8"/><text x="586" y="404" text-anchor="middle" fill="#1F2E5C">1.7% n=3</text>
+        <rect x="636" y="392" width="60" height="16" fill="#EDEBF8"/><text x="666" y="404" text-anchor="middle" fill="#1F2E5C">1.2% n=2</text>
+        <rect x="716" y="392" width="60" height="16" fill="#B7B2E4"/><text x="746" y="404" text-anchor="middle" fill="#1F2E5C">4.5% n=4</text>
+        <text x="806" y="404" fill="#3A4050" font-weight="700">&mdash;</text>
+      </g>
+      <text x="850" y="342" font-size="7.4" fill="#8A93A8">Download image &#9662; &nbsp; CSV &#8595;</text>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ahx22" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="220" y1="16" x2="200" y2="16" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx22)"/>
+        <circle cx="232" cy="16" r="11" fill="#5A57C9"/><text x="232" y="20" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="700" y1="-2" x2="682" y2="10" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx22)"/>
+        <circle cx="707" cy="-8" r="11" fill="#5A57C9"/><text x="707" y="-4" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="248" y1="182" x2="228" y2="182" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx22)"/>
+        <circle cx="260" cy="182" r="11" fill="#5A57C9"/><text x="260" y="186" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="738" y1="182" x2="718" y2="182" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx22)"/>
+        <circle cx="750" cy="182" r="11" fill="#5A57C9"/><text x="750" y="186" text-anchor="middle" fill="#fff">4</text>
+
+        <line x1="204" y1="338" x2="186" y2="338" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx22)"/>
+        <circle cx="216" cy="338" r="11" fill="#5A57C9"/><text x="216" y="342" text-anchor="middle" fill="#fff">5</text>
+
+        <line x1="965" y1="360" x2="944" y2="346" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx22)"/>
+        <circle cx="972" cy="367" r="11" fill="#5A57C9"/><text x="972" y="371" text-anchor="middle" fill="#fff">6</text>
+      </g>
+    </svg>
+    <figcaption>The Factor analysis page: factors over the years, ranked factors, the trend view, factors by category and by coroner area (values from the working corpus).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Factors over the years</td><td>A heatmap of every Yorkshire Contributory Factor by year (2013 onwards): each cell shows the share &mdash; and count &mdash; of that year&rsquo;s reports carrying the factor. Toggle percentages and counts; narrow by <b>year</b> or by <b>factor category</b> (tier); the Total column gives each factor&rsquo;s overall report count.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Factors ranked</td><td>The factors ordered by how many reports they appear in, with the share labelled (e.g. Care Planning in 61.6% of reports). Bars are coloured by <b>framework tier</b> &mdash; Situational, Communication &amp; Culture, Local working conditions, Organisational, External, Human &mdash; so the balance of tiers reads at a glance.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Trend in a factor</td><td>Pick a factor and see the reports carrying it over time, grouped by <b>month or year</b>, with an optional trend line &mdash; the quickest way to see whether a factor is rising or fading.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Factors by report category</td><td>For each report category, the <b>mix of factor tiers</b> as a 100% stacked bar &mdash; showing, for example, whether hospital deaths carry proportionally more organisational factors than road deaths. The <b>Category system</b> toggle switches the rows between the <b>Judiciary</b> categories and the <b>NHS</b> categories, so the same factors can be read against whichever framework you work in.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Factors by coroner area &mdash; or NHS region</td><td>The factor &times; area matrix: each cell is the share and count of an area&rsquo;s reports carrying the factor, with an area drop-down to narrow it. A <b>Group by NHS region</b> toggle rolls the coroner areas up into the seven <b>NHS England regions</b> &mdash; showing where each factor concentrates geographically, at whichever level you need.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Downloads</td><td>Every panel exports as an <b>image</b> (for slides and papers) or <b>CSV</b> (for a spreadsheet), like the rest of the tool; the interactive <b>factor network view</b> also exports as a <b>self-contained HTML file</b> you can open and explore in a browser.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.8pt;line-height:1.5">
+    <b style="color:var(--navy)">Where the numbers come from.</b>
+    These charts count the contributory factors identified on each report and reviewed on the <b>Factor annotation</b> page &mdash; each factor tied to the sentences that support it. A factor is counted <b>once per report</b> &mdash; the counts reflect whether it is <b>present or absent</b>, not how many times (or in how many sentences) it appears in that report. The factor set is the <b>Yorkshire Contributory Factors Framework</b>; letters mark the tier (C, E, H, L, O, S).
+  </div>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">11 of 13</div>
+</div>
+
+<!-- ═══════ THEME REVIEW ═══════ -->
+<div class="page" id="sec-7">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="lx23"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#lx23)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Theme annotation</b><span>July 2026</span></div>
+  </div>
+  <div class="rule"></div>
+  <div class="gnav"><a href="#sec-1">1 &middot; Getting started</a><a href="#sec-2">2 &middot; Home</a><a href="#sec-3">3 &middot; Analysis &amp; dashboard</a><a href="#sec-4">4 &middot; Projects</a><a href="#sec-5">5 &middot; Factor annotation</a><a href="#sec-6">6 &middot; Factor analysis</a><span class="on">7 &middot; Theme annotation</span><a href="#sec-8">8 &middot; Theme analysis</a></div>
+  <div class="gloc">This sheet &mdash; part 7 of 8 of the Lense.ai user guide &mdash; covers: Menu &#9656; THEMATIC ANALYSIS &#9656; <b>Theme annotation</b></div>
+
+
+  <h1>Theme annotation: agreeing the themes found in each report</h1>
+  <p class="lede">Beyond the fixed contributory-factor framework, the tool also finds <b>themes in each report&rsquo;s own wording</b> &mdash; recurring subjects, each with a one-line summary and its supporting sentences. This too is done <b>automatically</b> as each report is scraped; here a person can <b>accept or reject</b> each theme for the project if they wish.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 400" width="100%" role="img" aria-label="Annotated diagram of the theme review page">
+      <!-- top bar -->
+      <text x="40" y="4" font-size="8" fill="#5E6676" letter-spacing="1" font-weight="700">PROJECT</text>
+      <rect x="40" y="10" width="230" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="52" y="27" font-size="10" fill="#3A4050">learning disability &#9662;</text>
+      <text x="330" y="27" font-size="10" fill="#1F3864" text-decoration="underline">How it works</text>
+      <text x="470" y="27" font-size="8.5" fill="#5E6676">report 1/284 &middot; 4 themes</text>
+      <rect x="600" y="12" width="104" height="20" rx="10" fill="#F4F6F9" stroke="#D9DEE6"/>
+      <text x="652" y="26" text-anchor="middle" font-size="8.5" fill="#5E6676">811 left to review</text>
+      <text x="756" y="4" font-size="8" fill="#5E6676" letter-spacing="1" font-weight="700">EXPORT PROJECT</text>
+      <rect x="756" y="10" width="164" height="26" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="838" y="27" text-anchor="middle" font-size="9" fill="#3A4050">Theme annotation workbook</text>
+
+      <!-- left: report with highlighted evidence -->
+      <rect x="40" y="52" width="470" height="332" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="74" font-size="11" fill="#0B0C0C" font-weight="700">Julie Sample</text>
+      <text x="56" y="89" font-size="7.6" fill="#5E6676">CORONER <tspan fill="#3A4050">A. Example</tspan> &nbsp; AREA <tspan fill="#3A4050">Manchester South</tspan> &nbsp; DATE <tspan fill="#3A4050">30/09/2019</tspan></text>
+      <text x="56" y="112" font-size="8.4" font-weight="700" fill="#0B0C0C">CORONER&#8217;S CONCERNS</text>
+      <text x="56" y="130" font-size="8.4" fill="#3A4050">The MATTERS OF CONCERN are as follows.</text>
+      <rect x="52" y="138" width="442" height="34" rx="3" fill="#F9E7EC"/>
+      <text x="60" y="152" font-size="8.4" fill="#3A4050">1. The inquest heard that despite two in-patient stays, there was no</text>
+      <text x="60" y="166" font-size="8.4" fill="#3A4050">best-interests meeting held to discuss her care; <tspan fill="#D48AA4">&#9632;</tspan></text>
+      <text x="56" y="190" font-size="8.4" fill="#3A4050">2. On each of her admissions her parents took her needs passport in.</text>
+      <rect x="52" y="198" width="442" height="34" rx="3" fill="#EAF3EA"/>
+      <text x="60" y="212" font-size="8.4" fill="#3A4050">The inquest was told that this should be used to develop the reasonable</text>
+      <text x="60" y="226" font-size="8.4" fill="#3A4050">adjustments care plan and be accessible to all staff caring for her. <tspan fill="#7BAE7F">&#9632;</tspan></text>
+      <rect x="52" y="238" width="442" height="34" rx="3" fill="#F9E7EC"/>
+      <text x="60" y="252" font-size="8.4" fill="#3A4050">On her first admission there was no reasonable care plan put in place</text>
+      <text x="60" y="266" font-size="8.4" fill="#3A4050">despite her clear and significant disabilities; <tspan fill="#D48AA4">&#9632;</tspan></text>
+      <rect x="52" y="278" width="442" height="20" rx="3" fill="#EFEDF9"/>
+      <text x="60" y="292" font-size="8.4" fill="#3A4050">Her passport location was not known by all staff caring for her; <tspan fill="#9A8FD8">&#9632;</tspan></text>
+      <text x="56" y="320" font-size="8.4" fill="#3A4050">3. Julie Ann Sample was cared for devotedly in hospital by her parents</text>
+      <text x="56" y="334" font-size="8.4" fill="#3A4050">who are in their 80s.</text>
+
+      <!-- right: themes -->
+      <rect x="530" y="52" width="430" height="332" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="546" y="74" font-size="8.5" fill="#0B0C0C" font-weight="700" letter-spacing=".5">THEMES IN THIS REPORT</text>
+      <text x="546" y="88" font-size="7.6" fill="#8A93A8">These themes were found in this report&#8217;s wording. Accept or reject each one for this project.</text>
+      <text x="546" y="104" font-size="8.5" fill="#5E6676" font-family="monospace">reviewed 4/4</text>
+      <!-- expanded theme -->
+      <rect x="546" y="114" width="398" height="168" rx="3" fill="#FAFBFC" stroke="#E3E7EE"/>
+      <rect x="546" y="114" width="4" height="168" fill="#D48AA4"/>
+      <text x="560" y="132" font-size="9.5" fill="#0B0C0C" font-weight="700">&#9662; &#9632; Disability Care Planning</text>
+      <rect x="856" y="120" width="56" height="16" rx="8" fill="#E6F0E8"/>
+      <text x="884" y="132" text-anchor="middle" font-size="7.6" fill="#2F6B45">&#10003; accepted</text>
+      <text x="560" y="150" font-size="8.4" fill="#3A4050">Implementation of reasonable-adjustment care plans and the formal</text>
+      <text x="560" y="163" font-size="8.4" fill="#3A4050">documentation of best-interests meetings for a patient with learning disabilities.</text>
+      <text x="560" y="181" font-size="8.2" fill="#3A4050"><tspan fill="#5A57C9">&#182; 16</tspan> No reasonable adjustment care plan was completed.</text>
+      <text x="560" y="196" font-size="8.2" fill="#3A4050"><tspan fill="#5A57C9">&#182; 25</tspan> No best interests meeting took place.</text>
+      <text x="560" y="211" font-size="8.2" fill="#3A4050"><tspan fill="#5A57C9">&#182; 39</tspan> 1. The inquest heard that despite two in-patient stays, there was no</text>
+      <text x="560" y="224" font-size="8.2" fill="#3A4050">best-interests meeting held to discuss her care;</text>
+      <text x="560" y="244" font-size="8.2" fill="#5E6676">Your review for this project:</text>
+      <rect x="680" y="232" width="58" height="18" rx="3" fill="#2F6B45"/><text x="709" y="245" text-anchor="middle" font-size="8.2" fill="#fff" font-weight="600">&#10003; Accept</text>
+      <rect x="744" y="232" width="56" height="18" rx="3" fill="#fff" stroke="#C9D0DC"/><text x="772" y="245" text-anchor="middle" font-size="8.2" fill="#8F3232" font-weight="600">&#10005; Reject</text>
+      <rect x="560" y="256" width="370" height="18" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="568" y="269" font-size="8" fill="#8A93A8">Add a note (optional)</text>
+      <!-- collapsed themes -->
+      <g font-size="9" fill="#0B0C0C">
+        <rect x="546" y="292" width="4" height="18" fill="#7BAE7F"/><text x="560" y="305">&#9656; Communication and Support</text>
+        <rect x="856" y="294" width="56" height="15" rx="7.5" fill="#E6F0E8"/><text x="884" y="305" text-anchor="middle" font-size="7.4" fill="#2F6B45">&#10003; accepted</text>
+        <rect x="546" y="316" width="4" height="18" fill="#9A8FD8"/><text x="560" y="329">&#9656; Safeguarding Resources</text>
+        <rect x="856" y="318" width="56" height="15" rx="7.5" fill="#E6F0E8"/><text x="884" y="329" text-anchor="middle" font-size="7.4" fill="#2F6B45">&#10003; accepted</text>
+        <rect x="546" y="340" width="4" height="18" fill="#E0B48A"/><text x="560" y="353">&#9656; Carer Support</text>
+        <rect x="852" y="342" width="62" height="15" rx="7.5" fill="#F4E2E0"/><text x="883" y="353" text-anchor="middle" font-size="7.4" fill="#8F3232">&#10005; rejected</text>
+      </g>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ahx24" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="306" y1="23" x2="280" y2="23" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx24)"/>
+        <circle cx="318" cy="23" r="11" fill="#5A57C9"/><text x="318" y="27" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="726" y1="23" x2="750" y2="23" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx24)"/>
+        <circle cx="714" cy="23" r="11" fill="#5A57C9"/><text x="714" y="27" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="530" y1="132" x2="554" y2="132" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx24)"/>
+        <circle cx="519" cy="132" r="11" fill="#5A57C9"/><text x="519" y="136" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="38" y1="255" x2="50" y2="255" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx24)"/>
+        <circle cx="27" cy="255" r="11" fill="#5A57C9"/><text x="27" y="259" text-anchor="middle" fill="#fff">4</text>
+
+        <line x1="530" y1="241" x2="672" y2="241" stroke="#5A57C9" stroke-width="0"/>
+        <line x1="648" y1="220" x2="676" y2="236" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx24)"/>
+        <circle cx="640" cy="214" r="11" fill="#5A57C9"/><text x="640" y="218" text-anchor="middle" fill="#fff">5</text>
+
+        <line x1="965" y1="330" x2="924" y2="326" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ahx24)"/>
+        <circle cx="972" cy="333" r="11" fill="#5A57C9"/><text x="972" y="337" text-anchor="middle" fill="#fff">6</text>
+      </g>
+    </svg>
+    <figcaption>The Theme annotation page (content illustrative; names invented; theme names shown in neutral wording).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Project &amp; progress</td><td>Choose the project. The header shows the report you are on (report 1/284), how many themes it carries, and what remains project-wide (&ldquo;811 left to review&rdquo;). <b>How it works</b> opens a short explanation.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Theme annotation workbook</td><td>Downloads an Excel workbook of the project&rsquo;s themes, grouped by cluster: one row per theme with the report it came from, the theme name, its one-line summary, the evidence sentences and their count. <b>You can rename any theme in the workbook as you wish</b> for your own reporting.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Themes in this report</td><td>The themes found <b>in this report&rsquo;s own wording</b>, each with a one-line summary and its evidence sentences (&#182;&nbsp;16, &#182;&nbsp;25&hellip;). Theme names are kept <b>neutral</b> &mdash; they name the subject matter without characterising it positively or negatively.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Evidence in the text</td><td>The supporting sentences are highlighted in the report itself, colour-matched to their theme &mdash; you judge each theme against the report&rsquo;s own words, in context.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Accept / Reject, with a note</td><td>Your decision on each theme <b>for this project</b> &mdash; <b>Accept</b> when at least one sentence supports it, <b>Reject</b> only when nothing does &mdash; with an optional note to record your reasoning. The reviewed count updates as you go, and decisions can be changed at any time.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Status at a glance</td><td>Each theme carries its decision chip &mdash; <b>&#10003; accepted</b> or <b>&#10005; rejected</b> &mdash; so a reviewed report reads at a glance. <b>Rejected</b> themes are excluded from the Theme analysis; the automatic and accepted themes feed it.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.5pt;line-height:1.5">
+    <b style="color:var(--navy)">Important &mdash; how to review each theme.</b>
+    Read the supporting sentences <b>collectively</b>. <b>Accept</b> the theme if <b>at least one</b> sentence supports it &mdash; one sentence is enough, because the analysis records only whether a theme is <b>present or absent</b> in a report, not how many sentences support it. <b>Reject only when nothing</b> in the report supports it &mdash; not because some suggested sentences are wrong, or because you mean to add a better one. Decisions are per project and can be changed at any time; to download your work, use the <b>Theme annotation workbook</b> link.
+  </div>
+
+  <div style="margin-top:8px;padding:8px 13px;background:#FFF4E5;border-left:3px solid #E08A2B;font-size:8.5pt;line-height:1.5">
+    <b style="color:#B5670E">Coming up.</b>
+    The ability for a reviewer to <b>add and remove the sentences under a theme</b>, and to <b>add new themes</b> &mdash; functionality planned for <b>September&nbsp;2026</b>.
+  </div>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">12 of 13</div>
+</div>
+
+<!-- ═══════ THEME ANALYSIS ═══════ -->
+<div class="page" id="sec-8">
+  <div class="mast">
+    <div class="id">
+      <svg viewBox="0 0 48 48"><clipPath id="l2x25"><circle cx="21" cy="24" r="14"/></clipPath>
+        <g clip-path="url(#l2x25)"><rect x="6" y="16.5" width="30" height="2" fill="#BFC6D3"/><rect x="6" y="29.5" width="30" height="2" fill="#BFC6D3"/></g>
+        <rect x="7" y="22.5" width="38" height="3" fill="#5A57C9"/><circle cx="21" cy="24" r="14" fill="none" stroke="#1F3864" stroke-width="2.6"/></svg>
+      <div><b>Lense<i>.ai</i></b><small>Loughborough University</small></div>
+    </div>
+    <div class="c"><b>User guide &middot; Theme analysis</b><span>July 2026</span></div>
+  </div>
+  <div class="rule"></div>
+  <div class="gnav"><a href="#sec-1">1 &middot; Getting started</a><a href="#sec-2">2 &middot; Home</a><a href="#sec-3">3 &middot; Analysis &amp; dashboard</a><a href="#sec-4">4 &middot; Projects</a><a href="#sec-5">5 &middot; Factor annotation</a><a href="#sec-6">6 &middot; Factor analysis</a><a href="#sec-7">7 &middot; Theme annotation</a><span class="on">8 &middot; Theme analysis</span></div>
+  <div class="gloc">This sheet &mdash; part 8 of 8 of the Lense.ai user guide &mdash; covers: Menu &#9656; THEMATIC ANALYSIS &#9656; <b>Theme analysis</b></div>
+
+
+  <h1>Theme analysis: the themes across the whole selection</h1>
+  <p class="lede">Theme analysis aggregates the reviewed themes across every selected report: which themes occur most, and how they distribute across the report categories. A <b>Category system</b> toggle (Judiciary or NHS) re-groups the category charts, and the familiar filters (Healthcare speciality, NHS region, coroner area and name, date of report or death) apply throughout.</p>
+
+  <figure>
+    <svg viewBox="0 -14 1000 486" width="100%" role="img" aria-label="Annotated diagram of the theme overview page">
+      <!-- A: cluster selector -->
+      <text x="40" y="6" font-size="9.5" fill="#0B0C0C" font-weight="700">Report wording</text>
+      <rect x="40" y="14" width="230" height="24" rx="3" fill="#fff" stroke="#5A57C9"/>
+      <text x="50" y="30" font-size="9" fill="#3A4050">Select a grouped cluster &#9662;</text>
+      <rect x="40" y="42" width="230" height="88" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <rect x="40" y="42" width="230" height="18" fill="#5A57C9"/>
+      <text x="50" y="55" font-size="8.6" fill="#fff">Clinical Communication (31)</text>
+      <g font-size="8.6" fill="#3A4050">
+        <text x="50" y="74">Clinical Escalation (16)</text>
+        <text x="50" y="91">Care Documentation (16)</text>
+        <text x="50" y="108">Clinical Monitoring (14)</text>
+        <text x="50" y="125">Care Coordination (12) &hellip;</text>
+      </g>
+
+      <!-- B: top themes -->
+      <text x="630" y="6" text-anchor="middle" font-size="10" fill="#0B0C0C" font-weight="700">Top themes</text>
+      <g font-size="8">
+        <rect x="778" y="-6" width="88" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="822" y="7" text-anchor="middle" fill="#3A4050">Download image</text>
+        <rect x="872" y="-6" width="86" height="18" rx="3" fill="#fff" stroke="#D9DEE6"/><text x="915" y="7" text-anchor="middle" fill="#3A4050">Download CSV &#8595;</text>
+      </g>
+      <g font-size="7.8" fill="#3A4050" text-anchor="end">
+        <text x="452" y="30">Clinical Communication</text>
+        <text x="452" y="50">Clinical Escalation</text>
+        <text x="452" y="70">Care Documentation</text>
+        <text x="452" y="90">Clinical Monitoring</text>
+        <text x="452" y="110">Care Coordination</text>
+      </g>
+      <g fill="#5A57C9">
+        <rect x="460" y="21" width="440" height="12"/>
+        <rect x="460" y="41" width="227" height="12"/>
+        <rect x="460" y="61" width="227" height="12"/>
+        <rect x="460" y="81" width="198" height="12"/>
+        <rect x="460" y="101" width="170" height="12"/>
+      </g>
+      <g font-size="7.8" fill="#3A4050">
+        <text x="904" y="31">31</text><text x="691" y="51">16</text><text x="691" y="71">16</text>
+        <text x="662" y="91">14</text><text x="634" y="111">12</text>
+      </g>
+      <line x1="460" y1="122" x2="944" y2="122" stroke="#E3E7EE"/>
+      <text x="702" y="133" text-anchor="middle" font-size="7.2" fill="#8A93A8">Number of reports</text>
+
+      <!-- C: trend over time -->
+      <rect x="40" y="148" width="450" height="130" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="168" font-size="9.5" fill="#0B0C0C" font-weight="700">Trend over time</text>
+      <rect x="196" y="156" width="180" height="18" rx="3" fill="#fff" stroke="#C9D0DC"/>
+      <text x="204" y="169" font-size="8" fill="#3A4050">Clinical Communication (31) &#9662;</text>
+      <line x1="60" y1="256" x2="474" y2="256" stroke="#E3E7EE"/>
+      <line x1="60" y1="186" x2="60" y2="256" stroke="#E3E7EE"/>
+      <polyline points="66,242 110,252 154,252 198,222 242,222 286,252 330,242 374,196 418,186 462,206"
+        fill="none" stroke="#5A57C9" stroke-width="1.8"/>
+      <g fill="#5A57C9">
+        <circle cx="66" cy="242" r="2.4"/><circle cx="110" cy="252" r="2.4"/><circle cx="154" cy="252" r="2.4"/>
+        <circle cx="198" cy="222" r="2.4"/><circle cx="242" cy="222" r="2.4"/><circle cx="286" cy="252" r="2.4"/>
+        <circle cx="330" cy="242" r="2.4"/><circle cx="374" cy="196" r="2.4"/><circle cx="418" cy="186" r="2.4"/>
+        <circle cx="462" cy="206" r="2.4"/>
+      </g>
+      <g font-size="7" fill="#8A93A8">
+        <text x="60" y="268">2016</text><text x="196" y="268">2019</text><text x="330" y="268">2023</text><text x="452" y="268">2026</text>
+      </g>
+
+      <!-- D: co-occurrence -->
+      <rect x="510" y="148" width="450" height="130" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="526" y="168" font-size="9.5" fill="#0B0C0C" font-weight="700">Theme co-occurrence matrix</text>
+      <g font-size="7" fill="#5E6676">
+        <text x="700" y="186">Communication</text><text x="786" y="186">Escalation</text><text x="862" y="186">Documentation</text>
+      </g>
+      <g font-size="7.6">
+        <text x="526" y="204" fill="#3A4050">Clinical Communication</text>
+        <rect x="694" y="192" width="72" height="18" fill="#F5F4FB"/><text x="730" y="205" text-anchor="middle" fill="#8A93A8" font-style="italic">31</text>
+        <rect x="772" y="192" width="72" height="18" fill="#B7B2E4"/><text x="808" y="205" text-anchor="middle" fill="#1F2E5C">2</text>
+        <rect x="850" y="192" width="72" height="18" fill="#D9D6F1"/><text x="886" y="205" text-anchor="middle" fill="#1F2E5C">1</text>
+        <text x="526" y="228" fill="#3A4050">Clinical Escalation</text>
+        <rect x="694" y="216" width="72" height="18" fill="#B7B2E4"/><text x="730" y="229" text-anchor="middle" fill="#1F2E5C">2</text>
+        <rect x="772" y="216" width="72" height="18" fill="#F5F4FB"/><text x="808" y="229" text-anchor="middle" fill="#8A93A8" font-style="italic">16</text>
+        <rect x="850" y="216" width="72" height="18" fill="#9C95DB"/><text x="886" y="229" text-anchor="middle" fill="#fff">3</text>
+        <text x="526" y="252" fill="#3A4050">Care Documentation</text>
+        <rect x="694" y="240" width="72" height="18" fill="#D9D6F1"/><text x="730" y="253" text-anchor="middle" fill="#1F2E5C">1</text>
+        <rect x="772" y="240" width="72" height="18" fill="#9C95DB"/><text x="808" y="253" text-anchor="middle" fill="#fff">3</text>
+        <rect x="850" y="240" width="72" height="18" fill="#F5F4FB"/><text x="886" y="253" text-anchor="middle" fill="#8A93A8" font-style="italic">16</text>
+      </g>
+      <text x="526" y="271" font-size="7" fill="#8A93A8">Each cell counts reports carrying both themes; the muted diagonal is each theme&#8217;s own total.</text>
+
+      <!-- E: theme x category matrix -->
+      <rect x="40" y="294" width="560" height="128" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="56" y="314" font-size="9.5" fill="#0B0C0C" font-weight="700">Themes by category</text>
+      <text x="200" y="314" font-size="7.2" fill="#8A93A8">also by coroner area &middot; % / counts &middot; Top 10 &#9662;</text>
+      <text x="420" y="314" font-size="6.8" fill="#8A93A8">Category:</text>
+      <rect x="460" y="306" width="44" height="11" rx="5.5" fill="#5A57C9"/><text x="482" y="314.4" text-anchor="middle" font-size="6.5" fill="#fff">Judiciary</text>
+      <rect x="508" y="306" width="28" height="11" rx="5.5" fill="#EEF0F6" stroke="#D9DEE6"/><text x="522" y="314.4" text-anchor="middle" font-size="6.5" fill="#5E6676">NHS</text>
+      <g font-size="7" fill="#5E6676">
+        <text x="330" y="332">Communication</text><text x="428" y="332">Escalation</text><text x="512" y="332">Reports</text>
+      </g>
+      <g font-size="7.6">
+        <text x="56" y="350" fill="#3A4050">Hospital Death Clinical&hellip;</text>
+        <rect x="324" y="338" width="80" height="18" fill="#B7B2E4"/><text x="364" y="351" text-anchor="middle" fill="#1F2E5C">10% n=10</text>
+        <rect x="412" y="338" width="80" height="18" fill="#D9D6F1"/><text x="452" y="351" text-anchor="middle" fill="#1F2E5C">6% n=6</text>
+        <text x="516" y="351" fill="#3A4050" font-weight="700">102</text>
+        <text x="56" y="374" fill="#3A4050">Suicide from 2015</text>
+        <rect x="324" y="362" width="80" height="18" fill="#CFCBEC"/><text x="364" y="375" text-anchor="middle" fill="#1F2E5C">8% n=6</text>
+        <rect x="412" y="362" width="80" height="18" fill="#EDEBF8"/><text x="452" y="375" text-anchor="middle" fill="#1F2E5C">3% n=2</text>
+        <text x="516" y="375" fill="#3A4050" font-weight="700">72</text>
+        <text x="56" y="398" fill="#3A4050">Mental Health related deaths</text>
+        <rect x="324" y="386" width="80" height="18" fill="#9C95DB"/><text x="364" y="399" text-anchor="middle" fill="#fff">15% n=8</text>
+        <rect x="412" y="386" width="80" height="18" fill="#EDEBF8"/><text x="452" y="399" text-anchor="middle" fill="#1F2E5C">4% n=2</text>
+        <text x="516" y="399" fill="#3A4050" font-weight="700">54</text>
+      </g>
+      <text x="56" y="416" font-size="7" fill="#8A93A8">Share and count of each category&#8217;s reports carrying the theme.</text>
+
+      <!-- F: review list -->
+      <rect x="620" y="294" width="340" height="128" rx="4" fill="#fff" stroke="#E3E7EE"/>
+      <text x="636" y="314" font-size="9.5" fill="#0B0C0C" font-weight="700">Review</text>
+      <g font-size="7.2" fill="#5E6676">
+        <text x="636" y="332">Report</text><text x="820" y="332">Reviewed</text><text x="890" y="332">Review</text>
+      </g>
+      <g stroke="#EFF1F5"><line x1="636" y1="338" x2="944" y2="338"/><line x1="636" y1="362" x2="944" y2="362"/><line x1="636" y1="386" x2="944" y2="386"/></g>
+      <g font-size="7.8">
+        <text x="636" y="354" fill="#3A4050">Alex Example: Prevention of&hellip;</text>
+        <text x="826" y="354" fill="#5E6676" font-family="monospace">0/4</text>
+        <text x="890" y="354" fill="#1F3864" font-family="monospace">Open report</text>
+        <text x="636" y="378" fill="#3A4050">Jo Sample: Prevention of&hellip;</text>
+        <text x="826" y="378" fill="#5E6676" font-family="monospace">0/2</text>
+        <text x="890" y="378" fill="#1F3864" font-family="monospace">Open report</text>
+        <text x="636" y="402" fill="#3A4050">Sam Case: Prevention of&hellip;</text>
+        <text x="826" y="402" fill="#5E6676" font-family="monospace">4/4</text>
+        <text x="890" y="402" fill="#1F3864" font-family="monospace">Open report</text>
+      </g>
+
+      <!-- markers -->
+      <defs>
+        <marker id="ah2x26" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5A57C9"/>
+        </marker>
+      </defs>
+      <g font-size="11" font-weight="700">
+        <line x1="300" y1="26" x2="276" y2="26" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x26)"/>
+        <circle cx="312" cy="26" r="11" fill="#5A57C9"/><text x="312" y="30" text-anchor="middle" fill="#fff">1</text>
+
+        <line x1="662" y1="3" x2="640" y2="16" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x26)"/>
+        <circle cx="670" cy="-4" r="11" fill="#5A57C9"/><text x="670" y="0" text-anchor="middle" fill="#fff">2</text>
+
+        <line x1="150" y1="166" x2="128" y2="166" stroke="#5A57C9" stroke-width="0"/>
+        <line x1="146" y1="167" x2="130" y2="167" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x26)"/>
+        <circle cx="158" cy="167" r="11" fill="#5A57C9"/><text x="158" y="171" text-anchor="middle" fill="#fff">3</text>
+
+        <line x1="742" y1="167" x2="720" y2="167" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x26)"/>
+        <circle cx="754" cy="167" r="11" fill="#5A57C9"/><text x="754" y="171" text-anchor="middle" fill="#fff">4</text>
+
+        <line x1="176" y1="313" x2="158" y2="313" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x26)"/>
+        <circle cx="188" cy="313" r="11" fill="#5A57C9"/><text x="188" y="317" text-anchor="middle" fill="#fff">5</text>
+
+        <line x1="700" y1="313" x2="682" y2="313" stroke="#5A57C9" stroke-width="1.4" marker-end="url(#ah2x26)"/>
+        <circle cx="712" cy="313" r="11" fill="#5A57C9"/><text x="712" y="317" text-anchor="middle" fill="#fff">6</text>
+      </g>
+    </svg>
+    <figcaption>The Theme analysis: clusters, Top themes, trend, co-occurrence, the category matrix and the review list (values from the &ldquo;learning disability&rdquo; example; theme names shown in neutral wording; report names invented).</figcaption>
+  </figure>
+
+  <table>
+    <tr><th style="width:7%"></th><th style="width:24%">Feature</th><th>What it does</th></tr>
+    <tr><td class="n"><i>1</i></td><td class="f">Grouped clusters</td><td>Themes with similar meaning are grouped into <b>clusters</b>, each with its report count (&ldquo;Clinical Communication (31)&rdquo;). Select one to explore the themes and reports inside it.</td></tr>
+    <tr><td class="n"><i>2</i></td><td class="f">Top themes</td><td>How many reports carry each theme cluster, most frequent first. Downloads as an image (for slides) or CSV (for a spreadsheet), like every chart in the tool.</td></tr>
+    <tr><td class="n"><i>3</i></td><td class="f">Trend over time</td><td>Pick a theme cluster and see how many reports carry it each year &mdash; the quickest way to spot a theme that is rising or fading.</td></tr>
+    <tr><td class="n"><i>4</i></td><td class="f">Theme co-occurrence matrix</td><td>Which themes appear <b>together in the same reports</b>: each cell counts the reports carrying both themes (darker = more); the muted diagonal is each theme&rsquo;s own total; hover a cell for the exact pair. Useful for seeing which issues travel together.</td></tr>
+    <tr><td class="n"><i>5</i></td><td class="f">Themes by category &mdash; and by coroner area</td><td>How the themes distribute across the report categories &mdash; each cell shows the share and count of a category&rsquo;s reports carrying that theme, with percentage/count toggles and a Top-N control. The <b>Category system</b> toggle switches the rows between the <b>Judiciary</b> and <b>NHS</b> categories. The same matrix is available <b>by coroner area</b>, with NHS region and area drop-downs, showing where each theme concentrates geographically.</td></tr>
+    <tr><td class="n"><i>6</i></td><td class="f">Review list</td><td>Every report in the project with its theme count and review progress (&ldquo;0/4 reviewed&rdquo;), each with an <b>Open report</b> link straight into Theme annotation &mdash; the working to-do list for the reviewing effort.</td></tr>
+  </table>
+
+  <div style="margin-top:9px;padding:9px 13px;background:var(--navy-pale);border-left:3px solid var(--navy);font-size:8.8pt;line-height:1.5">
+    <b style="color:var(--navy)">About theme names.</b>
+    Theme names are kept <b>neutral</b>: they name the subject matter (&ldquo;Clinical Communication&rdquo;, &ldquo;Care Documentation&rdquo;) without characterising it positively or negatively. And the names are yours to adapt: download the <b>Theme annotation workbook</b> and rename any theme to suit your own reporting.
+  </div>
+
+  <div class="band">
+    <div class="l"><b>Lense.ai</b> &nbsp;&middot;&nbsp; lense.up.railway.app</div>
+  </div>
+  <div class="pg">13 of 13</div>
+</div>
+
+<div class="backpage">
+  <div class="bp-k">REFERENCE</div>
+  <div class="bp-cite">Cosma G, Waterson P, Williams Lekuona M, Vara K. <em style="font-weight:600">Lense<i>.ai</i>: thematic and human factors analysis of incident and investigation reports</em> [Software]. Loughborough University; 2026. <span style="color:#A9A6FF;white-space:nowrap">doi:10.17028/rd.lboro.33011351</span></div>
+  <div class="bp-note">Please use this reference when citing Lense.ai or this user guide.</div>
+  <div class="bp-contact">
+    <div class="bp-q">For questions, feedback and access-code requests:</div>
+    <b>Professor Georgina Cosma</b>
+    <span class="em">g.cosma@lboro.ac.uk</span><br>
+    Loughborough University
+  </div>
+  <div class="bp-foot"><span style="color:#fff;font-weight:600">Lense.ai</span> &middot; Loughborough University &middot; July 2026 &middot; lense.up.railway.app</div>
+</div>
+
+
+
+</body>
+</html>
