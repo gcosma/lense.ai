@@ -6,8 +6,8 @@
 <title>Lense.ai — Thematic and human factors analysis of incident and investigation reports</title>
 <meta name="description" content="Lense.ai analyses incident and investigation reports at scale, identifying the themes and contributory factors that recur across them, with every finding traceable to the sentences that support it. Developed at Loughborough University.">
 <meta name="theme-color" content="#16223F">
-<meta name="color-scheme" content="only light">
-<meta name="supported-color-schemes" content="light">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
   --wrap:1080px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;color-scheme:only light}
+html{scroll-behavior:smooth;color-scheme:light dark}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 body{font-family:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
@@ -387,8 +387,39 @@ section:nth-of-type(even){background:#FAFBFD}
 .vzheat td,.vzheat th{padding:6px 4px}
 .wbtab{font-size:11.5px;padding:3px 8px}
 }
+/* ---------- designed dark theme (activates only when the device prefers dark) ---------- */
 @media (prefers-color-scheme: dark){
-html,body{background:#FFFFFF !important;color:#3A4050}
+:root{
+  --paper:#0F1626; --tint:#182238; --deep:#0B1120;
+  --ink:#F2F4F9; --body:#C7CEDC; --muted:#939EB3; --line:#28334E; --line-2:#3A4766;
+  --navy:#8FA9D9; --navy-hi:#A9BEE6; --navy-pale:#161F36;
+  --iris:#7C79E8; --evi:#3FBF9B; --evi-bg:#12281F; --sand:#D9C08F; --sand-bg:#241E12;
+  --f-sit:#7C90D9; --f-com:#7C8FD0; --f-loc:#7C79E8; --f-org:#6FA0D9; --f-ext:#8FB3D9; --f-hum:#D9CBA6;
+}
+.masthead{background:#111A2E}
+section:nth-of-type(even){background:#121B31}
+.brand svg{filter:brightness(1.9)}
+.caps > div,.step figure,.figures,.person,.vzc,.srch,.chart,.dl{background:#151E33}
+.person{background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 14%,#151E33),#151E33 60%)}
+.step figure[style]{background:#151E33 !important;border-color:var(--line) !important}
+[style*="background:#fff"]{background:#151E33 !important}
+.btn{background:#1B2540;color:var(--ink);border-color:var(--line-2)}
+.wbtab{background:#1B2540;border-color:#38466B;color:var(--body)}
+.wbtab:hover{background:#22305A}
+.wbtab.on{background:#26335C;color:#CFDCF5;border-color:#4A5C8C}
+.vzhb .tr i{filter:saturate(.95)}
+.srch .p1{background:#26335C;color:#B9C6F2}
+.srch .p2{background:#1B2540;color:var(--muted)}
+.srch .bk{background:#233052;color:var(--body)}
+.srch .bs{background:#143327;color:#5ED0AD}
+.srch .q{background:#1B2540;color:var(--ink)}
+.vzgrid i{border-top-color:#243052}
+.wbpanel{border-top-color:#243052}
+.cmp td,.cmp th{border-color:var(--line)}
+.cmp{background:#151E33}
+.cmp thead th{background:#26335C;color:#DEE6F5}
+.cmp .grp td{color:#9FB4E0}
+img{opacity:.94}
 }
 </style>
 </head>
